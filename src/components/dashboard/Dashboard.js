@@ -4,12 +4,12 @@ import { Redirect } from 'react-router-dom';
 
 const Dashboard = () => {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated } = authContext;
+  const { isAuthenticated, user } = authContext;
 
   if (!isAuthenticated) {
     return <Redirect to="/login" />;
   }
-  return <div>You are logged in</div>;
+  return <div>Welcome {user && user.name}</div>;
 };
 
 export default Dashboard;

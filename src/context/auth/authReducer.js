@@ -4,6 +4,7 @@ import {
   LOGOUT,
   USER_LOADED,
   AUTH_ERROR,
+  CLEAR_ERRORS,
 } from '../types';
 
 export default (state, action) => {
@@ -15,7 +16,7 @@ export default (state, action) => {
         ...state,
         isAuthenticated: true,
         loading: false,
-        user: payload,
+        user: payload.data,
       };
     case LOGIN_SUCCESS:
       localStorage.setItem('token', payload.token);
@@ -37,6 +38,11 @@ export default (state, action) => {
         loading: false,
         user: null,
         error: payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;

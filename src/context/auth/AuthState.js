@@ -8,6 +8,7 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
+  CLEAR_ERRORS,
 } from '../types';
 
 const api = 'http://localhost:5000/api/v1';
@@ -31,7 +32,6 @@ const AuthState = (props) => {
 
     try {
       const res = await axios.get(`${api}/auth/me`, config);
-
       dispatch({
         type: USER_LOADED,
         payload: res.data,
@@ -51,7 +51,6 @@ const AuthState = (props) => {
 
     try {
       const res = await axios.post(`${api}/auth/login`, formData, config);
-      console.log(res);
 
       dispatch({
         type: LOGIN_SUCCESS,
@@ -70,6 +69,9 @@ const AuthState = (props) => {
   // Logout
   const logout = () => dispatch({ type: LOGOUT });
 
+  // Clear errors
+  const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
+
   return (
     <AuthContext.Provider
       value={{
@@ -81,6 +83,7 @@ const AuthState = (props) => {
         loadUser,
         login,
         logout,
+        clearErrors,
       }}
     >
       {props.children}
