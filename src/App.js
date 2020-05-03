@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AuthState from './context/auth/AuthState';
 import Navbar from './components/layout/Navbar';
+import Dashboard from './components/dashboard/Dashboard';
 import About from './components/pages/About';
 import Login from './components/auth/Login';
 import './App.css';
@@ -12,6 +13,7 @@ const App = () => {
       <Router>
         <Navbar />
         <Switch>
+          <Route exact path="/" component={Dashboard} />
           <Route exact path="/about" component={About} />
           <Route exact path="/login" component={Login} />
         </Switch>

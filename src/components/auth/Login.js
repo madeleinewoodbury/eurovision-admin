@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
 import AuthContext from '../../context/auth/authContext';
+import { Redirect } from 'react-router-dom';
 
 const Login = () => {
   const authContext = useContext(AuthContext);
-  const { login } = authContext;
+  const { login, isAuthenticated } = authContext;
 
   const [formData, setFormData] = useState({
     email: '',
@@ -26,6 +27,11 @@ const Login = () => {
       });
     }
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <div className="container">
       <div className="form-container">
