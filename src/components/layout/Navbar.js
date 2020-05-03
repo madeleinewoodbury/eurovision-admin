@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav className="navbar bg-primary">
+    <nav className="navbar">
       <Link to="/">ESC Admin</Link>
       <ul>
         <li>
