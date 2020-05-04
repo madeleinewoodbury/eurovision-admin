@@ -20,7 +20,7 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: rgb(240, 240, 240);
+  background-color: #fff;
   color: black;
 }
 
@@ -39,12 +39,6 @@ ul {
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
-}
-
-.large {
-  font-size: 3rem;
-  line-height: 1.2;
-  margin-bottom: 1rem;
 }
 
 .lead {
@@ -251,7 +245,145 @@ button {
   width: 80%;
 }
 
+.card .img-link img.square {
+  box-shadow: 2px 4px 11px -6px rgba(0, 0, 0, 0.75);
+}
+
 .card .img-link span {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   padding-top: 0.5rem;
+}
+
+/* Feature Page */
+.feature {
+  margin: 1rem 0;
+}
+
+.feature .title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+}
+
+.feature .title img {
+  width: 100px;
+}
+
+.feature .title .logo {
+  margin-left: 1rem;
+}
+
+.feature .content {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.feature .content .top {
+  display: flex;
+  justify-content: center;
+}
+
+.feature .content .img-container {
+  max-width: 600px;
+}
+
+.feature .content .img-container img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 2px 4px 11px -6px rgba(0, 0, 0, 0.75);
+}
+
+.feature .content .info {
+  margin-left: 2rem;
+}
+
+.feature .content .info .info-item {
+  margin: 0.5rem 0;
+}
+
+.feature .content .info .info-item span {
+  color: var(--secondary-color);
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.feature .content .info .info-item span img {
+  margin-right: 0.2rem;
+}
+
+.feature .content .bottom {
+  margin: 1rem auto;
+  width: 80%;
+}
+
+.feature .content .bottom .bio {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+}
+
+.feature .bottom .tables {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.feature .bottom .tables .table {
+  width: 100%;
+  margin: 1rem;
+}
+
+.feature .bottom .table .section-title {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+/* Table */
+table {
+  width: 100%;
+}
+
+table td,
+table th {
+  padding: 0.5rem;
+}
+
+table td {
+  cursor: pointer;
+}
+
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table tr:hover {
+  background-color: #ddd;
+}
+
+table th {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  text-align: left;
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.table th i {
+  margin-left: 0.2rem;
+  cursor: pointer;
+}
+
+.table th i:hover {
+  color: var(--primary-color);
+}
+
+table .country-td {
+  display: flex;
+  align-items: center;
+}
+
+table .country-td img {
+  margin-right: 0.5rem;
 }
