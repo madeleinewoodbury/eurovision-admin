@@ -1,23 +1,23 @@
 import React, { useEffect, useContext } from 'react';
 import EscContext from '../../context/esc/escContext';
-import CountryCard from './CountryCard';
+import EventCard from './EventCard';
 
-const Countries = () => {
+const Events = () => {
   const escContext = useContext(EscContext);
-  const { getCountries, loading, countries } = escContext;
+  const { getEvents, loading, events } = escContext;
 
   useEffect(() => {
-    getCountries();
+    getEvents();
 
     // eslint-disable-next-line
   }, []);
   return (
     !loading && (
       <div className="container">
-        <h1 className="text-center my-1">Countries</h1>
+        <h1 className="text-center my-1">Events</h1>
         <div className="card-container">
-          {countries.map((country) => (
-            <CountryCard key={country._id} country={country} />
+          {events.map((event) => (
+            <EventCard key={event._id} event={event} />
           ))}
         </div>
       </div>
@@ -25,4 +25,4 @@ const Countries = () => {
   );
 };
 
-export default Countries;
+export default Events;

@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import EscContext from './escContext';
 import EscReducer from './escReducer';
-import { GET_COUNTRIES, SET_ERROR, CLEAR_ERRORS } from '../types';
+import { GET_COUNTRIES, GET_EVENTS, SET_ERROR, CLEAR_ERRORS } from '../types';
 
 const api = 'http://localhost:5000/api/v1';
 
@@ -33,6 +33,22 @@ const EscState = (props) => {
     }
   };
 
+  // Get all events
+  const getEvents = async () => {
+    try {
+      const res = await axios.get(`${api}/events`);
+      dispatch({
+        type: GET_EVENTS,
+        payload: res.data.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_ERROR,
+        payload: 'Something went wrong',
+      });
+    }
+  };
+
   // Clear errors
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 
@@ -40,9 +56,11 @@ const EscState = (props) => {
     <EscContext.Provider
       value={{
         countries: state.countries,
+        events: state.events,
         loading: state.loading,
         error: state.error,
         getCountries,
+        getEvents,
         clearErrors,
       }}
     >

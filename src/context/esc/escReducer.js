@@ -1,4 +1,4 @@
-import { GET_COUNTRIES, SET_ERROR, CLEAR_ERRORS } from '../types';
+import { GET_COUNTRIES, GET_EVENTS, SET_ERROR, CLEAR_ERRORS } from '../types';
 
 export default (state, action) => {
   const { type, payload } = action;
@@ -8,6 +8,12 @@ export default (state, action) => {
       return {
         ...state,
         countries: payload,
+        loading: false,
+      };
+    case GET_EVENTS:
+      return {
+        ...state,
+        events: payload,
         loading: false,
       };
     case SET_ERROR:

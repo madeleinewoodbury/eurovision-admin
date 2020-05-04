@@ -9,6 +9,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import About from './components/pages/About';
 import Login from './components/auth/Login';
 import Countries from './components/countries/Countries';
+import Events from './components/events/Events';
 import './App.css';
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
               <Route exact path="/about" component={About} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/countries" component={Countries} />
+              <Route exact path="/events" component={Events} />
             </Switch>
           </Router>
         </AlertState>

@@ -7,4 +7,5 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const SET_ALERT = 'SET_ALERT';
 export const REMOVE_ALERT = 'REMOVE_ALERT';
 export const GET_COUNTRIES = 'GET_COUNTRIES';
+export const GET_EVENTS = 'GET_EVENTS';
 export const SET_ERROR = 'SET_ERROR';
