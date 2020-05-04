@@ -12,10 +12,13 @@ const Navbar = () => {
 
   const authLinks = (
     <ul>
-      <a onClick={onLogout} href="#!">
+      <li>
+        <Link to="/countries">Countries</Link>
+      </li>
+      <li onClick={onLogout}>
         <i className="fas fa-sign-out-alt" />{' '}
         <span className="hide-md">Logout</span>
-      </a>
+      </li>
     </ul>
   );
 
