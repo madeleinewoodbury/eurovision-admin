@@ -16,6 +16,18 @@ import {
 } from '../types';
 
 const api = 'http://localhost:5000/api/v1';
+const config = {
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${localStorage.token}`,
+  },
+};
+
+const authConfig = {
+  headers: {
+    Authorization: `Bearer ${localStorage.token}`,
+  },
+};
 
 const EscState = (props) => {
   const initialState = {
@@ -67,13 +79,6 @@ const EscState = (props) => {
   // Add a new country
   const addCountry = async (formData) => {
     try {
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.token}`,
-        },
-      };
-
       const res = await axios.post(`${api}/countries`, formData, config);
       dispatch({
         type: SET_MESSAGE,
@@ -90,12 +95,6 @@ const EscState = (props) => {
   // Edit country
   const editCountry = async (id, formData) => {
     try {
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.token}`,
-        },
-      };
       const res = await axios.put(`${api}/countries/${id}`, formData, config);
       dispatch({
         type: SET_MESSAGE,
@@ -112,12 +111,7 @@ const EscState = (props) => {
   // Edit country
   const deleteCountry = async (id) => {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${localStorage.token}`,
-        },
-      };
-      await axios.delete(`${api}/countries/${id}`, config);
+      await axios.delete(`${api}/countries/${id}`, authConfig);
 
       dispatch({
         type: SET_MESSAGE,
