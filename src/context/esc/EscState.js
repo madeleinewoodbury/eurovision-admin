@@ -89,7 +89,6 @@ const EscState = (props) => {
 
   // Edit country
   const editCountry = async (id, formData) => {
-    console.log(id, formData);
     try {
       const config = {
         headers: {
@@ -106,6 +105,28 @@ const EscState = (props) => {
       dispatch({
         type: SET_ERROR,
         payload: 'Could not edit country',
+      });
+    }
+  };
+
+  // Edit country
+  const deleteCountry = async (id) => {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      };
+      await axios.delete(`${api}/countries/${id}`, config);
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: 'Country deleted',
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_ERROR,
+        payload: 'Could not delete country',
       });
     }
   };
@@ -248,6 +269,7 @@ const EscState = (props) => {
         getCountry,
         addCountry,
         editCountry,
+        deleteCountry,
         getEvents,
         getEvent,
         getEventsByCountry,

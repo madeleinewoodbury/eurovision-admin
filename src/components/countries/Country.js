@@ -1,14 +1,16 @@
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import EscContext from '../../context/esc/escContext';
 import FeatureTop from '../layout/FeatureTop';
 import CountryEventTable from './CountryEventTable';
 import CountryParticipantTable from './CountryParticipantTable';
 
-const Country = ({ match }) => {
+const Country = ({ match, history }) => {
   const escContext = useContext(EscContext);
   const {
     getCountry,
     country,
+    deleteCountry,
     getEventsByCountry,
     events,
     getParticipantsByCountry,
@@ -59,10 +61,29 @@ const Country = ({ match }) => {
     getEventsByCountry(match.params.id, sort);
   };
 
+  const handleDelete = (e) => {
+    if (
+      window.confirm(
+        `Are you sure you wish to delete ${country.name}? This action can not be undone`
+      )
+    ) {
+      deleteCountry(country._id);
+      history.push('/');
+    }
+  };
+
   return (
     <div className="container">
       {!loading && country !== null ? (
         <div className="feature">
+          <div className="action-buttons">
+            <Link to={`/edit-country/${country._id}`} className="btn btn-dark">
+              Edit
+            </Link>
+            <button className="btn btn-danger" onClick={handleDelete}>
+              Delete
+            </button>
+          </div>
           <h1 className="title">
             <img src={country.flag} alt={`${country.name} flag`} />
             {country.name}

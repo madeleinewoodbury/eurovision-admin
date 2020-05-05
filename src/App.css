@@ -94,6 +94,11 @@ ul {
   color: #fff;
 }
 
+.btn-dark {
+  background: var(--dark-color);
+  color: #fff;
+}
+
 .btn-danger {
   background: var(--danger-color);
   color: #fff;
@@ -265,6 +270,12 @@ button {
 /* Feature Page */
 .feature {
   margin: 1rem 0;
+}
+
+.feature .action-buttons {
+  position: absolute;
+  top: 100px;
+  right: 1rem;
 }
 
 .feature .title {
