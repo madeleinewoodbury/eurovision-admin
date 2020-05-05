@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const EventTable = ({ participants, handleSort }) => {
+const EventTable = ({ history, participants, handleSort }) => {
   const [startSort, setStartSort] = useState('asc');
   const [countrySort, setCountrySort] = useState('desc');
   const [artistSort, setArtistSort] = useState('desc');
@@ -32,6 +32,10 @@ const EventTable = ({ participants, handleSort }) => {
     setPointsSort(pointsSort === 'asc' ? 'desc' : 'asc');
   };
 
+  const handleRedirect = (id) => {
+    history.push(`/participants/${id}`);
+  };
+
   return (
     <div className="table">
       <h2 className="section-title">Participants</h2>
@@ -57,7 +61,7 @@ const EventTable = ({ participants, handleSort }) => {
         </thead>
         <tbody>
           {participants.map((p) => (
-            <tr key={p._id}>
+            <tr key={p._id} onClick={(e) => handleRedirect(p._id)}>
               <td>{p.startNr}</td>
               <td className="country-td">
                 <img

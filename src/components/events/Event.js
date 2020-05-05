@@ -99,6 +99,7 @@ const Event = ({ match, history }) => {
               <div className="tables">
                 {participants.length > 0 && (
                   <EventTable
+                    history={history}
                     participants={participants}
                     handleSort={handleSort}
                   />
