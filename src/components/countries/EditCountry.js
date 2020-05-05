@@ -1,11 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import EscContext from '../../context/esc/escContext';
-import AuthContext from '../../context/auth/authContext';
 import FormInput from '../forms/FormInput';
 
 const EditCountry = ({ match, history }) => {
   const escContext = useContext(EscContext);
-  const authContext = useContext(AuthContext);
   const { country, getCountry, loading, editCountry } = escContext;
   const [formData, setFormData] = useState({
     name: '',

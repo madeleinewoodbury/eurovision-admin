@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import EscContext from '../../context/esc/escContext';
 import FeatureTop from '../layout/FeatureTop';
 import EventTable from './EventTable';
 
-const Event = ({ match }) => {
+const Event = ({ match, history }) => {
   const escContext = useContext(EscContext);
   const {
     getEvent,
@@ -11,6 +12,7 @@ const Event = ({ match }) => {
     getParticipantsByEvent,
     participants,
     loading,
+    deleteEvent,
   } = escContext;
 
   useEffect(() => {
@@ -43,10 +45,29 @@ const Event = ({ match }) => {
     getParticipantsByEvent(match.params.id, sort);
   };
 
+  const handleDelete = (e) => {
+    if (
+      window.confirm(
+        `Are you sure you wish to delete ${event.year} event? This action can not be undone`
+      )
+    ) {
+      deleteEvent(event._id);
+      history.push('/');
+    }
+  };
+
   return (
     <div className="container">
       {!loading && event !== null ? (
         <div className="feature">
+          <div className="action-buttons">
+            <Link to={`/edit-event/${event._id}`} className="btn btn-dark">
+              Edit
+            </Link>
+            <button className="btn btn-danger" onClick={handleDelete}>
+              Delete
+            </button>
+          </div>
           <h1 className="title">
             {event.year}
             <img className="logo" src={event.logo} alt={`${event.year} logo`} />

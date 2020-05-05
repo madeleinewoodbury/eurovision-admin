@@ -1,13 +1,10 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import EscContext from '../../context/esc/escContext';
-import AuthContext from '../../context/auth/authContext';
 import FormInput from '../forms/FormInput';
 
 const AddCountry = ({ history }) => {
   const escContext = useContext(EscContext);
-  const authContext = useContext(AuthContext);
   const { addCountry } = escContext;
-  const { loadUser } = authContext;
   const [formData, setFormData] = useState({
     name: '',
     capital: '',
@@ -18,11 +15,6 @@ const AddCountry = ({ history }) => {
     bio: '',
     youtube: '',
   });
-
-  useEffect(() => {
-    loadUser();
-    // eslint-disable-next-line
-  }, []);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });

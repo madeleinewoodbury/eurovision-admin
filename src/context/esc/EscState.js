@@ -108,7 +108,7 @@ const EscState = (props) => {
     }
   };
 
-  // Edit country
+  // Delete country
   const deleteCountry = async (id) => {
     try {
       await axios.delete(`${api}/countries/${id}`, authConfig);
@@ -169,6 +169,55 @@ const EscState = (props) => {
       dispatch({
         type: SET_ERROR,
         payload: 'Something went wrong trying to retrieve events',
+      });
+    }
+  };
+
+  // Add a new event
+  const addEvent = async (formData) => {
+    try {
+      const res = await axios.post(`${api}/events`, formData, config);
+      dispatch({
+        type: SET_MESSAGE,
+        payload: `${res.data.data.year} event has been added`,
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_ERROR,
+        payload: 'Could not add event',
+      });
+    }
+  };
+
+  // Edit event
+  const editEvent = async (id, formData) => {
+    try {
+      const res = await axios.put(`${api}/events/${id}`, formData, config);
+      dispatch({
+        type: SET_MESSAGE,
+        payload: `${res.data.data.year} event has been updated`,
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_ERROR,
+        payload: 'Could not edit event',
+      });
+    }
+  };
+
+  // Delete event
+  const deleteEvent = async (id) => {
+    try {
+      await axios.delete(`${api}/events/${id}`, authConfig);
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: 'Event deleted',
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_ERROR,
+        payload: 'Could not delete event',
       });
     }
   };
@@ -267,6 +316,9 @@ const EscState = (props) => {
         getEvents,
         getEvent,
         getEventsByCountry,
+        addEvent,
+        editEvent,
+        deleteEvent,
         getParticipants,
         getParticipant,
         getParticipantsByCountry,

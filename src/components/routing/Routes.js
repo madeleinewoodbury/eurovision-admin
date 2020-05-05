@@ -12,6 +12,8 @@ import Events from '../events/Events';
 import Event from '../events/Event';
 import AddCountry from '../countries/AddCountry';
 import EditCountry from '../countries/EditCountry';
+import AddEvent from '../events/AddEvent';
+import EditEvent from '../events/EditEvent';
 
 const Routes = () => {
   return (
@@ -25,7 +27,9 @@ const Routes = () => {
         <Route exact path="/countries" component={Countries} />
         <Route exact path="/countries/:id" component={Country} />
         <PrivateRoute exact path="/add-country" component={AddCountry} />
-        <Route exact path="/edit-country/:id" component={EditCountry} />
+        <PrivateRoute exact path="/add-event" component={AddEvent} />
+        <PrivateRoute exact path="/edit-country/:id" component={EditCountry} />
+        <PrivateRoute exact path="/edit-event/:id" component={EditEvent} />
         <Route exact path="/events" component={Events} />
         <Route exact path="/events/:id" component={Event} />
       </Switch>

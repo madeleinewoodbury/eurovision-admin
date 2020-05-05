@@ -99,6 +99,16 @@ ul {
   color: #fff;
 }
 
+.btn-light {
+  background: var(--light-color);
+  color: black;
+}
+
+.btn-light:hover {
+  background-color: var(--secondary-color);
+  color: #fff;
+}
+
 .btn-danger {
   background: var(--danger-color);
   color: #fff;
@@ -265,6 +275,15 @@ button {
 .card .img-link span {
   font-size: 1.1rem;
   padding-top: 0.5rem;
+}
+
+/* Dashboard */
+.dashboard {
+  margin: 2rem 0;
+}
+
+.dashboard .action-buttons {
+  margin: 1rem 0;
 }
 
 /* Feature Page */
