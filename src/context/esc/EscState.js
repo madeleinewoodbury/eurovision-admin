@@ -87,6 +87,29 @@ const EscState = (props) => {
     }
   };
 
+  // Edit country
+  const editCountry = async (id, formData) => {
+    console.log(id, formData);
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      };
+      const res = await axios.put(`${api}/countries/${id}`, formData, config);
+      dispatch({
+        type: SET_MESSAGE,
+        payload: `${res.data.data.name} has been updated`,
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_ERROR,
+        payload: 'Could not edit country',
+      });
+    }
+  };
+
   // Get all events
   const getEvents = async () => {
     try {
@@ -224,6 +247,7 @@ const EscState = (props) => {
         getCountries,
         getCountry,
         addCountry,
+        editCountry,
         getEvents,
         getEvent,
         getEventsByCountry,

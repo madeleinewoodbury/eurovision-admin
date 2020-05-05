@@ -8,11 +8,12 @@ const Dashboard = () => {
   const authContext = useContext(AuthContext);
   const alertContext = useContext(AlertContext);
   const escContext = useContext(EscContext);
-  const { isAuthenticated, user } = authContext;
+  const { loadUser, isAuthenticated, user } = authContext;
   const { setAlert } = alertContext;
   const { message, clearMessage } = escContext;
 
   useEffect(() => {
+    loadUser();
     if (message !== null) {
       setAlert(message, 'success');
       clearMessage();

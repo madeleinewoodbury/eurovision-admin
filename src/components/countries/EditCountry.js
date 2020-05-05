@@ -3,11 +3,10 @@ import EscContext from '../../context/esc/escContext';
 import AuthContext from '../../context/auth/authContext';
 import FormInput from '../forms/FormInput';
 
-const AddCountry = ({ history }) => {
+const EditCountry = ({ match, history }) => {
   const escContext = useContext(EscContext);
   const authContext = useContext(AuthContext);
-  const { addCountry } = escContext;
-  const { loadUser } = authContext;
+  const { country, getCountry, loading, editCountry } = escContext;
   const [formData, setFormData] = useState({
     name: '',
     capital: '',
@@ -20,16 +19,30 @@ const AddCountry = ({ history }) => {
   });
 
   useEffect(() => {
-    loadUser();
-    // eslint-disable-next-line
-  }, []);
+    country === null && getCountry(match.params.id);
+    if (country !== null) {
+      setFormData({
+        name: loading || !country.name ? '' : country.name,
+        capital: loading || !country.capital ? '' : country.capital,
+        code: loading || !country.code ? '' : country.code,
+        flag: loading || !country.flag ? '' : country.flag,
+        image: loading || !country.image ? '' : country.image,
+        firstParticipation:
+          loading || !country.firstParticipation
+            ? ''
+            : country.firstParticipation,
+        bio: loading || !country.bio ? '' : country.bio,
+        youtube: loading || !country.youtube ? '' : country.youtube,
+      });
+    }
+  }, [loading, getCountry, match.params.id, country]);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addCountry(formData);
+    editCountry(match.params.id, formData);
     history.push('/');
   };
 
@@ -37,7 +50,7 @@ const AddCountry = ({ history }) => {
     <div className="container">
       <div className="form-container">
         <h1 className="large">
-          <i className="far fa-flag"></i>Add a New Country
+          <i className="far fa-flag"></i>Edit Country
         </h1>
         <p>* = required field</p>
         <form className="form" onSubmit={handleSubmit}>
@@ -113,4 +126,4 @@ const AddCountry = ({ history }) => {
   );
 };
 
-export default AddCountry;
+export default EditCountry;
