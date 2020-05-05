@@ -60,6 +60,7 @@ const Event = ({ match }) => {
                   title: 'Host Country',
                   text: event.country.name,
                   image: event.country.code,
+                  alt: `${event.country.name} flag`,
                 },
                 {
                   title: 'City',

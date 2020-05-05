@@ -1,6 +1,6 @@
 import React from 'react';
 
-const InfoItem = ({ title, text, image }) => {
+const InfoItem = ({ title, text, image, alt }) => {
   return (
     <div className="info-item">
       <h3>{title}</h3>
@@ -8,7 +8,7 @@ const InfoItem = ({ title, text, image }) => {
         {image && (
           <img
             src={`https://www.countryflags.io/${image}/flat/24.png`}
-            alt="bah"
+            alt={alt}
           />
         )}{' '}
         {text}

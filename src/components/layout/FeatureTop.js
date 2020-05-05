@@ -14,6 +14,7 @@ const FeatureTop = ({ image, altText, infoList }) => {
             title={item.title}
             text={item.text}
             image={item.image}
+            alt={item.alt}
           />
         ))}
       </div>

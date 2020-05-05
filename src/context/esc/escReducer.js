@@ -6,7 +6,9 @@ import {
   GET_PARTICIPANTS,
   GET_PARTICIPANT,
   SET_ERROR,
+  SET_MESSAGE,
   CLEAR_ERRORS,
+  CLEAR_MESSAGE,
 } from '../types';
 
 export default (state, action) => {
@@ -48,6 +50,16 @@ export default (state, action) => {
         ...state,
         participant: payload,
         loading: false,
+      };
+    case SET_MESSAGE:
+      return {
+        ...state,
+        message: payload,
+      };
+    case CLEAR_MESSAGE:
+      return {
+        ...state,
+        message: null,
       };
     case SET_ERROR:
       return {

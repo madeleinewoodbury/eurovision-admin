@@ -12,6 +12,7 @@ import Countries from './components/countries/Countries';
 import Country from './components/countries/Country';
 import Events from './components/events/Events';
 import Event from './components/events/Event';
+import AddCountry from './components/countries/AddCountry';
 import './App.css';
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
               <Route exact path="/login" component={Login} />
               <Route exact path="/countries" component={Countries} />
               <Route exact path="/countries/:id" component={Country} />
+              <Route exact path="/add-country" component={AddCountry} />
               <Route exact path="/events" component={Events} />
               <Route exact path="/events/:id" component={Event} />
             </Switch>

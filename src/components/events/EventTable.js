@@ -62,7 +62,7 @@ const EventTable = ({ participants, handleSort }) => {
               <td className="country-td">
                 <img
                   src={`https://www.countryflags.io/${p.country.code}/flat/24.png`}
-                  alt="bah"
+                  alt={`${p.country.name} flag`}
                 />{' '}
                 {p.country.name}
               </td>

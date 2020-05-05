@@ -9,8 +9,10 @@ import {
   GET_EVENT,
   GET_PARTICIPANTS,
   GET_PARTICIPANT,
+  SET_MESSAGE,
   SET_ERROR,
   CLEAR_ERRORS,
+  CLEAR_MESSAGE,
 } from '../types';
 
 const api = 'http://localhost:5000/api/v1';
@@ -25,6 +27,7 @@ const EscState = (props) => {
     participant: null,
     loading: true,
     error: null,
+    message: null,
   };
 
   const [state, dispatch] = useReducer(EscReducer, initialState);
@@ -57,6 +60,29 @@ const EscState = (props) => {
       dispatch({
         type: SET_ERROR,
         payload: 'Could not get country',
+      });
+    }
+  };
+
+  // Add a new country
+  const addCountry = async (formData) => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+      };
+
+      const res = await axios.post(`${api}/countries`, formData, config);
+      dispatch({
+        type: SET_MESSAGE,
+        payload: `${res.data.data.name} has been added`,
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_ERROR,
+        payload: 'Could not add country',
       });
     }
   };
@@ -180,6 +206,9 @@ const EscState = (props) => {
   // Clear errors
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 
+  // Clear errors
+  const clearMessage = () => dispatch({ type: CLEAR_MESSAGE });
+
   return (
     <EscContext.Provider
       value={{
@@ -191,8 +220,10 @@ const EscState = (props) => {
         participant: state.participant,
         loading: state.loading,
         error: state.error,
+        message: state.message,
         getCountries,
         getCountry,
+        addCountry,
         getEvents,
         getEvent,
         getEventsByCountry,
@@ -201,6 +232,7 @@ const EscState = (props) => {
         getParticipantsByCountry,
         getParticipantsByEvent,
         clearErrors,
+        clearMessage,
       }}
     >
       {props.children}
