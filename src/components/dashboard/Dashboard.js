@@ -36,6 +36,9 @@ const Dashboard = () => {
             <Link to="/add-event" className="btn btn-light">
               Add Event
             </Link>
+            <Link to="/add-participant" className="btn btn-light">
+              Add Participant
+            </Link>
           </div>
         </div>
       </div>

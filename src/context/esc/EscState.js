@@ -290,6 +290,22 @@ const EscState = (props) => {
     }
   };
 
+  // Add a new particopant
+  const addParticipant = async (formData) => {
+    try {
+      const res = await axios.post(`${api}/participants`, formData, config);
+      dispatch({
+        type: SET_MESSAGE,
+        payload: `${res.data.data.artist} has been added`,
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_ERROR,
+        payload: 'Could not add participant',
+      });
+    }
+  };
+
   // Clear errors
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 
@@ -323,6 +339,7 @@ const EscState = (props) => {
         getParticipant,
         getParticipantsByCountry,
         getParticipantsByEvent,
+        addParticipant,
         clearErrors,
         clearMessage,
       }}

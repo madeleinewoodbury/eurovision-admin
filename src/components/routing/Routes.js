@@ -16,6 +16,7 @@ import AddEvent from '../events/AddEvent';
 import EditEvent from '../events/EditEvent';
 import Participant from '../participants/Participant';
 import Participants from '../participants/Participants';
+import AddParticipant from '../participants/AddParticipant';
 
 const Routes = () => {
   return (
@@ -26,17 +27,24 @@ const Routes = () => {
         <Route exact path="/" component={Dashboard} />
         <Route exact path="/about" component={About} />
         <Route exact path="/login" component={Login} />
+
         <Route exact path="/countries" component={Countries} />
         <Route exact path="/countries/:id" component={Country} />
         <PrivateRoute exact path="/add-country" component={AddCountry} />
-        <PrivateRoute exact path="/add-event" component={AddEvent} />
+        <PrivateRoute exact path="/edit-country/:id" component={EditCountry} />
 
         <Route exact path="/events" component={Events} />
         <Route exact path="/events/:id" component={Event} />
-        <PrivateRoute exact path="/edit-country/:id" component={EditCountry} />
+        <PrivateRoute exact path="/add-event" component={AddEvent} />
         <PrivateRoute exact path="/edit-event/:id" component={EditEvent} />
+
         <Route exact path="/participants" component={Participants} />
         <Route exact path="/participants/:id" component={Participant} />
+        <PrivateRoute
+          exact
+          path="/add-participant"
+          component={AddParticipant}
+        />
       </Switch>
     </Router>
   );
