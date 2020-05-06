@@ -18,6 +18,9 @@ const Navbar = () => {
       <li>
         <Link to="/events">Events</Link>
       </li>
+      <li>
+        <Link to="/participants">Participants</Link>
+      </li>
       <li onClick={onLogout}>
         <i className="fas fa-sign-out-alt" />{' '}
         <span className="hide-md">Logout</span>
