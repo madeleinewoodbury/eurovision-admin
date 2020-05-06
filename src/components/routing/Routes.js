@@ -17,6 +17,7 @@ import EditEvent from '../events/EditEvent';
 import Participant from '../participants/Participant';
 import Participants from '../participants/Participants';
 import AddParticipant from '../participants/AddParticipant';
+import EditParticipant from '../participants/EditParticipant';
 
 const Routes = () => {
   return (
@@ -44,6 +45,11 @@ const Routes = () => {
           exact
           path="/add-participant"
           component={AddParticipant}
+        />
+        <PrivateRoute
+          exact
+          path="/edit-participant/:id"
+          component={EditParticipant}
         />
       </Switch>
     </Router>

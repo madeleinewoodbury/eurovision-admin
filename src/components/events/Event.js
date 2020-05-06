@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import EscContext from '../../context/esc/escContext';
-import FeatureTop from '../layout/FeatureTop';
+import InfoItem from '../layout/InfoItem';
 import EventTable from './EventTable';
 
 const Event = ({ match, history }) => {
@@ -32,9 +32,12 @@ const Event = ({ match, history }) => {
 
   const getWinner = () => {
     if (participants.length > 0) {
-      const winner = participants.find((participant) => participant.winner);
-      if (winner) {
-        return winner.country.name;
+      const winners = participants.filter((p) => p.winner);
+      if (winners.length > 0) {
+        let winningCountries = winners.map((winner, i) =>
+          i > 0 ? ' ' + winner.country.name : winner.country.name
+        );
+        return winningCountries.toString();
       } else {
         return 'TBA';
       }
@@ -73,27 +76,27 @@ const Event = ({ match, history }) => {
             <img className="logo" src={event.logo} alt={`${event.year} logo`} />
           </h1>
           <div className="content">
-            <FeatureTop
-              image={event.image}
-              altText={`Eurovision Song Contest ${event.year}`}
-              infoList={[
-                {
-                  title: 'Host Country',
-                  text: event.country.name,
-                  image: event.country.code,
-                  alt: `${event.country.name} flag`,
-                },
-                {
-                  title: 'City',
-                  text: event.city,
-                },
-                {
-                  title: 'Participants',
-                  text: calcParticipants(),
-                },
-                { title: 'Winner', text: getWinner() },
-              ]}
-            />
+            <div className="top">
+              <div className="img-container">
+                <img
+                  src={event.image}
+                  alt={`Eurovision Song Contest ${event.year}`}
+                />
+              </div>
+              <div className="info">
+                <InfoItem
+                  title="Host Country"
+                  text={event.country.name}
+                  image={event.country.code}
+                  alt={`${event.country.name} flag`}
+                  link={`/countries/${event.country._id}`}
+                />
+                <InfoItem title="City" text={event.city} />
+                <InfoItem title="Participants" text={calcParticipants()} />
+                <InfoItem title="Winner" text={getWinner()} />
+              </div>
+            </div>
+
             <section className="bottom">
               {event.bio && <p className="bio">{event.bio}</p>}
               <div className="tables">

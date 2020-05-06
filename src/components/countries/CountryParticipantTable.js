@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CountryParticipantTable = ({ participants, handleSort }) => {
+const CountryParticipantTable = ({ participants, handleSort, history }) => {
   const [artistSort, setArtistSort] = useState('desc');
   const [songSort, setSongSort] = useState('desc');
   const [yearSort, setYearSort] = useState('asc');
@@ -18,6 +18,10 @@ const CountryParticipantTable = ({ participants, handleSort }) => {
   const sortYear = (e) => {
     yearSort === 'asc' ? handleSort('-event') : handleSort('event');
     setYearSort(yearSort === 'asc' ? 'desc' : 'asc');
+  };
+
+  const handleRedirect = (id) => {
+    history.push(`/participants/${id}`);
   };
 
   return (
@@ -39,7 +43,7 @@ const CountryParticipantTable = ({ participants, handleSort }) => {
         </thead>
         <tbody>
           {participants.map((p) => (
-            <tr key={p._id}>
+            <tr key={p._id} onClick={(e) => handleRedirect(p._id)}>
               <td>{p.artist}</td>
               <td>{p.song}</td>
               <td>{p.event.year}</td>

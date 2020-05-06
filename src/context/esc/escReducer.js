@@ -9,6 +9,7 @@ import {
   SET_MESSAGE,
   CLEAR_ERRORS,
   CLEAR_MESSAGE,
+  CLEAR_ESC,
 } from '../types';
 
 export default (state, action) => {
@@ -71,6 +72,16 @@ export default (state, action) => {
       return {
         ...state,
         error: null,
+      };
+    case CLEAR_ESC:
+      return {
+        ...state,
+        countries: [],
+        country: null,
+        events: [],
+        event: null,
+        participants: [],
+        participant: null,
       };
     default:
       return state;

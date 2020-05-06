@@ -13,5 +13,6 @@ export const GET_EVENTS = 'GET_EVENTS';
 export const GET_EVENT = 'GET_EVENT';
 export const GET_PARTICIPANTS = 'GET_PARTICIPANTS';
 export const GET_PARTICIPANT = 'GET_PARTICIPANT';
+export const CLEAR_ESC = 'CLEAR_ESC';
 export const SET_MESSAGE = 'SET_MESSAGE';
 export const SET_ERROR = 'SET_ERROR';

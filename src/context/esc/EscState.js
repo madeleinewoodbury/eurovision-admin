@@ -13,6 +13,7 @@ import {
   SET_ERROR,
   CLEAR_ERRORS,
   CLEAR_MESSAGE,
+  CLEAR_ESC,
 } from '../types';
 
 const api = 'http://localhost:5000/api/v1';
@@ -46,6 +47,7 @@ const EscState = (props) => {
 
   // Get all countries
   const getCountries = async () => {
+    clearEsc();
     try {
       const res = await axios.get(`${api}/countries`);
       dispatch({
@@ -127,6 +129,8 @@ const EscState = (props) => {
 
   // Get all events
   const getEvents = async () => {
+    clearEsc();
+
     try {
       const res = await axios.get(`${api}/events?sort=year`);
       dispatch({
@@ -224,6 +228,8 @@ const EscState = (props) => {
 
   // Get all participants
   const getParticipants = async () => {
+    clearEsc();
+
     try {
       const res = await axios.get(`${api}/participants`);
       dispatch({
@@ -306,11 +312,51 @@ const EscState = (props) => {
     }
   };
 
+  // Edit participant
+  const editParticipant = async (id, formData) => {
+    try {
+      const res = await axios.put(
+        `${api}/participants/${id}`,
+        formData,
+        config
+      );
+      dispatch({
+        type: SET_MESSAGE,
+        payload: `${res.data.data.artist} has been updated`,
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_ERROR,
+        payload: 'Could not edit participant',
+      });
+    }
+  };
+
+  // Delete participant
+  const deleteParticipant = async (id) => {
+    try {
+      await axios.delete(`${api}/participants/${id}`, authConfig);
+
+      dispatch({
+        type: SET_MESSAGE,
+        payload: 'Participant deleted',
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_ERROR,
+        payload: 'Could not delete participant',
+      });
+    }
+  };
+
   // Clear errors
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
 
   // Clear errors
   const clearMessage = () => dispatch({ type: CLEAR_MESSAGE });
+
+  // Clear all
+  const clearEsc = () => dispatch({ type: CLEAR_ESC });
 
   return (
     <EscContext.Provider
@@ -340,6 +386,8 @@ const EscState = (props) => {
         getParticipantsByCountry,
         getParticipantsByEvent,
         addParticipant,
+        editParticipant,
+        deleteParticipant,
         clearErrors,
         clearMessage,
       }}

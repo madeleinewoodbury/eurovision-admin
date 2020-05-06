@@ -15,7 +15,6 @@ const Participants = () => {
 
   useEffect(() => {
     getEvents();
-
     // eslint-disable-next-line
   }, []);
 

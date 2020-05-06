@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import EscContext from '../../context/esc/escContext';
-import FeatureTop from '../layout/FeatureTop';
+import InfoItem from '../layout/InfoItem';
 import CountryEventTable from './CountryEventTable';
 import CountryParticipantTable from './CountryParticipantTable';
 
@@ -89,29 +89,33 @@ const Country = ({ match, history }) => {
             {country.name}
           </h1>
           <div className="content">
-            <FeatureTop
-              image={country.image}
-              altText={`${country.name} in the ESC`}
-              infoList={[
-                { title: 'Capital', text: country.capital },
-                {
-                  title: 'First Participation',
-                  text: country.firstParticipation,
-                },
-                { title: 'Victories', text: calcWinners() },
-                { title: 'Hosted', text: calcEvents() },
-              ]}
-            />
+            <div className="top">
+              <div className="img-container">
+                <img src={country.image} alt={`${country.name} in the ESC`} />
+              </div>
+              <div className="info">
+                <InfoItem title="Capital" text={country.capital} />
+                <InfoItem
+                  title="First Participation"
+                  text={country.firstParticipation}
+                />
+                <InfoItem title="Victories" text={calcWinners()} />
+                <InfoItem title="Hosted" text={calcEvents()} />
+              </div>
+            </div>
+
             <section className="bottom">
               {country.bio && <p className="bio">{country.bio}</p>}
               <div className="tables">
                 <CountryEventTable
                   events={events}
                   handleSort={handleEventSort}
+                  history={history}
                 />
                 <CountryParticipantTable
                   participants={participants}
                   handleSort={handleParticipantSort}
+                  history={history}
                 />
               </div>
             </section>
