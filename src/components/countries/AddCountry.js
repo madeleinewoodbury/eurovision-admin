@@ -86,7 +86,7 @@ const AddCountry = ({ history }) => {
             name="bio"
             value={formData.bio}
             handleChange={handleChange}
-            small="Write a bio of the country's history in the Eurovision Song Contest"
+            small="Write a bio of the country's history in the Eurovision Song Contest. Separate each paragraph with *"
             required={false}
           />
           <FormInput

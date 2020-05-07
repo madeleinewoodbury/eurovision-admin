@@ -146,7 +146,7 @@ const AddParticipant = ({ history }) => {
                 Winner
               </p>
             </div>
-            {/* winner */}
+
             <FormInput
               type="text"
               placeholder="Participant Image"
@@ -162,7 +162,7 @@ const AddParticipant = ({ history }) => {
               name="bio"
               value={formData.bio}
               handleChange={handleChange}
-              small="Write a bio of the participanr"
+              small="Write a bio of the participant. Separate each paragraph with *"
               required={false}
             />
             <FormInput

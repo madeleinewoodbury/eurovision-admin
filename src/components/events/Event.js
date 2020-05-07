@@ -101,11 +101,17 @@ const Event = ({ match, history }) => {
                 <InfoItem title="City" text={event.city} />
                 <InfoItem title="Participants" text={calcParticipants()} />
                 <InfoItem title="Winner" text={getWinner()} />
+                {event.video && <InfoItem videoLink={event.video} />}
               </div>
             </div>
 
             <section className="bottom">
-              {event.bio && <p className="bio">{event.bio}</p>}
+              {event.bio.length > 0 &&
+                event.bio.map((text, i) => (
+                  <p key={i} className="bio">
+                    {i === 0 ? <strong>{text}</strong> : text}
+                  </p>
+                ))}
               <div className="tables">
                 {participants.length > 0 && (
                   <EventTable

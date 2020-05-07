@@ -89,7 +89,7 @@ const EditCountry = ({ match, history }) => {
             value={formData.image}
             handleChange={handleChange}
             required={false}
-            small="Image of country in the Eurovision Song Contest"
+            small="Image of country in the Eurovision Song Contest. Separate each paragraph with *"
           />
           <FormInput
             type="number"

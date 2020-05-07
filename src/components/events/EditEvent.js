@@ -24,8 +24,8 @@ const EditEvent = ({ match, history }) => {
   });
 
   useEffect(() => {
-    countries.length < 1 && getCountries();
-    event === null && getEvent(match.params.id);
+    getCountries();
+    getEvent(match.params.id);
 
     if (event !== null) {
       setFormData({
@@ -39,7 +39,7 @@ const EditEvent = ({ match, history }) => {
       });
     }
     // eslint-disable-next-line
-  }, [loading, getCountries, getEvent, match.params.id, event]);
+  }, []);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -110,7 +110,7 @@ const EditEvent = ({ match, history }) => {
               name="bio"
               value={formData.bio}
               handleChange={handleChange}
-              small="Write a bio of the event"
+              small="Write a bio of the event. Separate each paragraph with *"
               required={false}
             />
             <FormInput

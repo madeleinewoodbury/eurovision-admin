@@ -90,7 +90,7 @@ const AddEvent = ({ history }) => {
               name="bio"
               value={formData.bio}
               handleChange={handleChange}
-              small="Write a bio of the event"
+              small="Write a bio of the event. Separate each paragraph with *"
               required={false}
             />
             <FormInput

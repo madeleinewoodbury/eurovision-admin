@@ -21,7 +21,7 @@ const EditParticipant = ({ match, history }) => {
     event: '',
     final: '',
     startNr: '',
-    points: '',
+    points: 0,
     winner: '',
     place: '',
     image: '',
@@ -47,10 +47,10 @@ const EditParticipant = ({ match, history }) => {
       song: loading || !participant.song ? '' : participant.song,
       country: loading || !participant.country.id ? '' : participant.country.id,
       event: loading || !participant.event._id ? '' : participant.event._id,
-      final: loading || !participant.final ? '' : participant.final,
+      final: loading || participant.final,
       startNr: loading || !participant.startNr ? '' : participant.startNr,
       points: loading || !participant.points ? '' : participant.points,
-      winner: loading || !participant.winner ? '' : participant.winner,
+      winner: loading || participant.winner,
       place: loading || !participant.place ? '' : participant.place,
       image: loading || !participant.image ? '' : participant.image,
       bio: loading || !participant.bio ? '' : participant.bio,
@@ -186,7 +186,7 @@ const EditParticipant = ({ match, history }) => {
               name="bio"
               value={formData.bio}
               handleChange={handleChange}
-              small="Write a bio of the participanr"
+              small="Write a bio of the participant. Separate each paragraph with *"
               required={false}
             />
             <FormInput
