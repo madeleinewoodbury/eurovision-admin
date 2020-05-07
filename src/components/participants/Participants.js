@@ -23,6 +23,21 @@ const Participants = () => {
     getParticipantsByEvent(e.target.value, 'artist');
   };
 
+  const getParticipantCards = (e) => {
+    const cards = participants.map((p) => (
+      <ParticipantCard key={p._id} participant={p} />
+    ));
+
+    if (eventYear === '') {
+      return (
+        <p className="text-center lead">
+          Please select a year to view participants
+        </p>
+      );
+    }
+    return <div className="card-container">{cards}</div>;
+  };
+
   return (
     !loading && (
       <div className="container">
@@ -39,12 +54,7 @@ const Participants = () => {
           </div>
         )}
         <h1 className="text-center my-1">Participants</h1>
-
-        <div className="card-container">
-          {participants.map((p) => (
-            <ParticipantCard key={p._id} participant={p} />
-          ))}
-        </div>
+        {getParticipantCards()}
       </div>
     )
   );

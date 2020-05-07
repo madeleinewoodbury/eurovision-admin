@@ -4,6 +4,7 @@ import EscContext from '../../context/esc/escContext';
 import InfoItem from '../layout/InfoItem';
 import CountryEventTable from './CountryEventTable';
 import CountryParticipantTable from './CountryParticipantTable';
+import placeholder from '../../img/placeholder.jpg';
 
 const Country = ({ match, history }) => {
   const escContext = useContext(EscContext);
@@ -91,7 +92,11 @@ const Country = ({ match, history }) => {
           <div className="content">
             <div className="top">
               <div className="img-container">
-                <img src={country.image} alt={`${country.name} in the ESC`} />
+                <img
+                  src={country.image}
+                  onError={(e) => (e.target.src = placeholder)}
+                  alt={`${country.name} in the ESC`}
+                />
               </div>
               <div className="info">
                 <InfoItem title="Capital" text={country.capital} />
@@ -107,16 +112,20 @@ const Country = ({ match, history }) => {
             <section className="bottom">
               {country.bio && <p className="bio">{country.bio}</p>}
               <div className="tables">
-                <CountryEventTable
-                  events={events}
-                  handleSort={handleEventSort}
-                  history={history}
-                />
-                <CountryParticipantTable
-                  participants={participants}
-                  handleSort={handleParticipantSort}
-                  history={history}
-                />
+                {events.length > 0 && (
+                  <CountryEventTable
+                    events={events}
+                    handleSort={handleEventSort}
+                    history={history}
+                  />
+                )}
+                {participants.length > 0 && (
+                  <CountryParticipantTable
+                    participants={participants}
+                    handleSort={handleParticipantSort}
+                    history={history}
+                  />
+                )}
               </div>
             </section>
           </div>

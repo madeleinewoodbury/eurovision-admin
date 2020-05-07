@@ -28,8 +28,8 @@ const AddParticipant = ({ history }) => {
   });
 
   useEffect(() => {
-    countries.length === 0 && getCountries();
-    events.length === 0 && getEvents();
+    getCountries();
+    getEvents();
     // eslint-disable-next-line
   }, []);
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import EscContext from '../../context/esc/escContext';
 import InfoItem from '../layout/InfoItem';
 import EventTable from './EventTable';
+import placeholder from '../../img/placeholder.jpg';
 
 const Event = ({ match, history }) => {
   const escContext = useContext(EscContext);
@@ -44,6 +45,11 @@ const Event = ({ match, history }) => {
     }
   };
 
+  const getImage = () => {
+    if (event.country.altIcon) return event.country.altIcon;
+    else return `https://www.countryflags.io/${event.country.code}/flat/16.png`;
+  };
+
   const handleSort = (sort) => {
     getParticipantsByEvent(match.params.id, sort);
   };
@@ -80,6 +86,7 @@ const Event = ({ match, history }) => {
               <div className="img-container">
                 <img
                   src={event.image}
+                  onError={(e) => (e.target.src = placeholder)}
                   alt={`Eurovision Song Contest ${event.year}`}
                 />
               </div>
@@ -87,7 +94,7 @@ const Event = ({ match, history }) => {
                 <InfoItem
                   title="Host Country"
                   text={event.country.name}
-                  image={event.country.code}
+                  image={getImage()}
                   alt={`${event.country.name} flag`}
                   link={`/countries/${event.country._id}`}
                 />

@@ -394,6 +394,7 @@ button {
 
 .feature .content .info .info-item span img {
   margin-right: 0.2rem;
+  width: 16px;
 }
 
 .feature .content .bottom {
@@ -468,4 +469,5 @@ table .country-td {
 
 table .country-td img {
   margin-right: 0.5rem;
+  width: 24px;
 }

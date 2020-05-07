@@ -2,10 +2,16 @@ import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import EscContext from '../../context/esc/escContext';
 import InfoItem from '../layout/InfoItem';
+import placeholder from '../../img/placeholder.jpg';
 
-const Participant = ({ match }) => {
+const Participant = ({ match, history }) => {
   const escContext = useContext(EscContext);
-  const { getParticipant, participant, loading } = escContext;
+  const {
+    getParticipant,
+    participant,
+    deleteParticipant,
+    loading,
+  } = escContext;
 
   useEffect(() => {
     getParticipant(match.params.id);
@@ -14,7 +20,20 @@ const Participant = ({ match }) => {
   }, []);
 
   const handleDelete = (e) => {
-    console.log('Delete');
+    if (
+      window.confirm(
+        `Are you sure you wish to delete ${participant.artist}? This action can not be undone`
+      )
+    ) {
+      deleteParticipant(participant._id);
+      history.push('/');
+    }
+  };
+
+  const getImage = () => {
+    if (participant.country.altIcon) return participant.country.altIcon;
+    else
+      return `https://www.countryflags.io/${participant.country.code}/flat/16.png`;
   };
 
   return (
@@ -37,7 +56,11 @@ const Participant = ({ match }) => {
             <div className="content">
               <div className="top">
                 <div className="img-container">
-                  <img src={participant.image} alt={participant.artist} />
+                  <img
+                    src={participant.image}
+                    onError={(e) => (e.target.src = placeholder)}
+                    alt={participant.artist}
+                  />
                 </div>
                 <div className="info">
                   <InfoItem
@@ -47,7 +70,7 @@ const Participant = ({ match }) => {
                   <InfoItem
                     title="Country"
                     text={participant.country.name}
-                    image={participant.country.code}
+                    image={getImage()}
                     alt={`${participant.country.name} flag`}
                     link={`/countries/${participant.country._id}`}
                   />

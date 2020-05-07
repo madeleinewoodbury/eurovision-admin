@@ -8,24 +8,12 @@ const InfoItem = ({ title, text, image, alt, link }) => {
       {link ? (
         <Link to={link}>
           <span>
-            {image && (
-              <img
-                src={`https://www.countryflags.io/${image}/flat/24.png`}
-                alt={alt}
-              />
-            )}{' '}
-            {text}
+            {image && <img src={image} alt={alt} />} {text}
           </span>
         </Link>
       ) : (
         <span>
-          {image && (
-            <img
-              src={`https://www.countryflags.io/${image}/flat/24.png`}
-              alt={alt}
-            />
-          )}{' '}
-          {text}
+          {image && <img src={image} alt={alt} />} {text}
         </span>
       )}
     </div>

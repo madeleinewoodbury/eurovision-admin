@@ -36,6 +36,11 @@ const EventTable = ({ history, participants, handleSort }) => {
     history.push(`/participants/${id}`);
   };
 
+  const getImage = (p) => {
+    if (p.country.altIcon) return p.country.altIcon;
+    else return `https://www.countryflags.io/${p.country.code}/flat/24.png`;
+  };
+
   return (
     <div className="table">
       <h2 className="section-title">Participants</h2>
@@ -64,10 +69,7 @@ const EventTable = ({ history, participants, handleSort }) => {
             <tr key={p._id} onClick={(e) => handleRedirect(p._id)}>
               <td>{p.startNr}</td>
               <td className="country-td">
-                <img
-                  src={`https://www.countryflags.io/${p.country.code}/flat/24.png`}
-                  alt={`${p.country.name} flag`}
-                />{' '}
+                <img src={getImage(p)} alt={`${p.country.name} flag`} />{' '}
                 {p.country.name}
               </td>
               <td>{p.artist}</td>
