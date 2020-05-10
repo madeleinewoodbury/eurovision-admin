@@ -300,7 +300,6 @@ const EscState = (props) => {
   const addParticipant = async (formData) => {
     try {
       const res = await axios.post(`${api}/participants`, formData, config);
-      console.log(res.data);
       dispatch({
         type: SET_MESSAGE,
         payload: `${res.data.data.artist} has been added`,

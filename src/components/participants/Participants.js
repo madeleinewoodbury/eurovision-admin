@@ -41,6 +41,7 @@ const Participants = () => {
   return (
     !loading && (
       <div className="container">
+        <h1 className="text-center my-1">Participants</h1>
         {events && (
           <div className="year-form">
             <select name="eventYear" value={eventYear} onChange={handleChange}>
@@ -53,7 +54,6 @@ const Participants = () => {
             </select>
           </div>
         )}
-        <h1 className="text-center my-1">Participants</h1>
         {getParticipantCards()}
       </div>
     )

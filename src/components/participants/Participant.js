@@ -80,7 +80,12 @@ const Participant = ({ match, history }) => {
               </div>
 
               <section className="bottom">
-                {participant.bio && <p className="bio">{participant.bio}</p>}
+                {participant.bio.length > 0 &&
+                  participant.bio.map((text, i) => (
+                    <p key={i} className="bio">
+                      {i === 0 ? <strong>{text}</strong> : text}
+                    </p>
+                  ))}
               </section>
             </div>
           </div>

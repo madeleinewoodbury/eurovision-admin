@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import EscContext from '../../context/esc/escContext';
 import FormInput from '../forms/FormInput';
 
-const AddParticipant = ({ history }) => {
+const AddParticipant = ({ history, match }) => {
   const escContext = useContext(EscContext);
   const {
     getCountries,
@@ -28,6 +28,9 @@ const AddParticipant = ({ history }) => {
   });
 
   useEffect(() => {
+    if (match.params.eventId) {
+      setFormData({ ...formData, event: match.params.eventId });
+    }
     getCountries();
     getEvents();
     // eslint-disable-next-line
@@ -39,7 +42,11 @@ const AddParticipant = ({ history }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     addParticipant(formData);
-    history.push('/');
+    if (match.params.eventId) {
+      history.push(`/events/${match.params.eventId}`);
+    } else {
+      history.push('/');
+    }
   };
 
   return (
@@ -167,12 +174,12 @@ const AddParticipant = ({ history }) => {
             />
             <FormInput
               type="text"
-              placeholder="Video Link"
+              placeholder="Video id"
               name="video"
               value={formData.video}
               handleChange={handleChange}
               required={false}
-              small="Link to the entry"
+              small="Youtube id"
             />
             <input type="submit" className="btn btn-primary my-1" />
           </form>

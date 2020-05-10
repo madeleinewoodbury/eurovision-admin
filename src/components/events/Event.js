@@ -1,12 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import EscContext from '../../context/esc/escContext';
+import AlertContext from '../../context/alert/alertContext';
 import InfoItem from '../layout/InfoItem';
 import EventTable from './EventTable';
 import placeholder from '../../img/placeholder.jpg';
 
 const Event = ({ match, history }) => {
   const escContext = useContext(EscContext);
+  const alertContext = useContext(AlertContext);
+
   const {
     getEvent,
     event,
@@ -14,14 +17,22 @@ const Event = ({ match, history }) => {
     participants,
     loading,
     deleteEvent,
+    message,
+    clearMessage,
   } = escContext;
+  const { setAlert } = alertContext;
 
   useEffect(() => {
+    console.log(message);
+    if (message !== null) {
+      setAlert(message, 'success');
+      clearMessage();
+    }
     getEvent(match.params.id);
     getParticipantsByEvent(match.params.id, 'startNr');
 
     // eslint-disable-next-line
-  }, []);
+  }, [message]);
 
   const calcParticipants = () => {
     if (participants.length > 0) {
@@ -73,6 +84,12 @@ const Event = ({ match, history }) => {
             <Link to={`/edit-event/${event._id}`} className="btn btn-dark">
               Edit
             </Link>
+            <Link
+              to={`/add-participant/${event._id}`}
+              className="btn btn-secondary"
+            >
+              Add Participant
+            </Link>
             <button className="btn btn-danger" onClick={handleDelete}>
               Delete
             </button>
@@ -101,7 +118,6 @@ const Event = ({ match, history }) => {
                 <InfoItem title="City" text={event.city} />
                 <InfoItem title="Participants" text={calcParticipants()} />
                 <InfoItem title="Winner" text={getWinner()} />
-                {event.video && <InfoItem videoLink={event.video} />}
               </div>
             </div>
 

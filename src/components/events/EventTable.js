@@ -5,7 +5,7 @@ const EventTable = ({ history, participants, handleSort }) => {
   const [countrySort, setCountrySort] = useState('desc');
   const [artistSort, setArtistSort] = useState('desc');
   const [songSort, setSongSort] = useState('desc');
-  const [pointsSort, setPointsSort] = useState('desc');
+  const [pointsSort, setPointsSort] = useState('asc');
 
   const sortStartNr = (e) => {
     startSort === 'asc' ? handleSort('-startNr') : handleSort('startNr');
@@ -53,28 +53,34 @@ const EventTable = ({ history, participants, handleSort }) => {
             <th>
               Country<i onClick={sortCountry} className="fas fa-sort"></i>
             </th>
-            <th>
+            <th className="hide-xs">
               Artist<i onClick={sortArtist} className="fas fa-sort"></i>
             </th>
-            <th>
+            <th className="hide-sm">
               Song<i onClick={sortSong} className="fas fa-sort"></i>
             </th>
             <th>
               Points<i onClick={sortPoints} className="fas fa-sort"></i>
             </th>
+            <th className="hide-md">Place</th>
           </tr>
         </thead>
         <tbody>
           {participants.map((p) => (
-            <tr key={p._id} onClick={(e) => handleRedirect(p._id)}>
+            <tr
+              key={p._id}
+              onClick={(e) => handleRedirect(p._id)}
+              className={p.winner ? 'winner' : null}
+            >
               <td>{p.startNr}</td>
               <td className="country-td">
                 <img src={getImage(p)} alt={`${p.country.name} flag`} />{' '}
                 {p.country.name}
               </td>
-              <td>{p.artist}</td>
-              <td>{p.song}</td>
+              <td className="hide-xs">{p.artist}</td>
+              <td className="hide-sm">{p.song}</td>
               <td>{p.points}</td>
+              <td className="hide-md">{p.place}</td>
             </tr>
           ))}
         </tbody>

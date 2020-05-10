@@ -35,11 +35,10 @@ ul {
 
 /* Utilities */
 .container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: auto;
   overflow: hidden;
   padding: 0 2rem;
-  position: relative;
 }
 
 .lead {
@@ -60,6 +59,7 @@ ul {
   background: var(--light-color);
   color: #333;
   max-width: 300px;
+  z-index: 10;
 }
 
 .alert-danger {
@@ -250,10 +250,9 @@ button {
 }
 
 .year-form {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
 /* Cards */
@@ -337,8 +336,19 @@ button {
 
 .feature .action-buttons {
   position: absolute;
-  top: 20px;
-  right: 1rem;
+  top: 80px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature .action-buttons .btn {
+  margin: 0.25rem 0;
+  text-align: center;
+}
+
+.feature .action-buttons .btn:hover {
+  opacity: 0.8;
 }
 
 .feature .title {
@@ -462,6 +472,11 @@ table th {
   color: var(--primary-color);
 }
 
+table tr.winner {
+  background-color: var(--success-color);
+  color: white;
+}
+
 table .country-td {
   display: flex;
   align-items: center;
@@ -470,4 +485,131 @@ table .country-td {
 table .country-td img {
   margin-right: 0.5rem;
   width: 24px;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1200px) {
+  .container {
+    width: 100%;
+  }
+
+  .feature .title {
+    justify-content: start;
+    margin-left: 1rem;
+  }
+
+  .feature .action-buttons {
+    right: 1rem;
+  }
+
+  .feature .action-buttons .btn {
+    margin: 0.25rem 0;
+    text-align: center;
+    padding: 0.25rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .feature .content .top {
+    justify-content: start;
+    margin-left: 1rem;
+  }
+
+  .feature .content .bottom {
+    width: 100%;
+  }
+
+  .feature .content .bottom .bio {
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .feature .action-buttons {
+    flex-direction: row;
+  }
+
+  .feature .action-buttons .btn {
+    margin: 0.25rem;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .card {
+    width: 23%;
+  }
+
+  .participant-card {
+    width: 31%;
+  }
+
+  .feature .action-buttons {
+    position: initial;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .feature .title {
+    justify-content: center;
+    margin: 0.5rem 0;
+  }
+
+  .feature .title img {
+    width: 75px;
+  }
+
+  .feature .content .top {
+    flex-direction: column;
+  }
+
+  .feature .content .img-container {
+    margin: 0 auto;
+  }
+
+  .feature .content .info {
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+  }
+
+  .feature .content .info .info-item {
+    margin: 0.25rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hide-md {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 31%;
+  }
+
+  .participant-card {
+    width: 48%;
+  }
+
+  .hide-sm {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .card {
+    width: 48%;
+  }
+
+  .participant-card {
+    width: 98%;
+  }
+
+  .hide-xs {
+    display: none;
+  }
 }

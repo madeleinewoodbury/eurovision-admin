@@ -191,12 +191,12 @@ const EditParticipant = ({ match, history }) => {
             />
             <FormInput
               type="text"
-              placeholder="Video Link"
+              placeholder="Video id"
               name="video"
               value={formData.video}
               handleChange={handleChange}
               required={false}
-              small="Link to the entry"
+              small="Youtube id"
             />
             <input type="submit" className="btn btn-primary my-1" />
           </form>

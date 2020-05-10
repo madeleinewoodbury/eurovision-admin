@@ -110,7 +110,12 @@ const Country = ({ match, history }) => {
             </div>
 
             <section className="bottom">
-              {country.bio && <p className="bio">{country.bio}</p>}
+              {country.bio.length > 0 &&
+                country.bio.map((text, i) => (
+                  <p key={i} className="bio">
+                    {i === 0 ? <strong>{text}</strong> : text}
+                  </p>
+                ))}
               <div className="tables">
                 {events.length > 0 && (
                   <CountryEventTable

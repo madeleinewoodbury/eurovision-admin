@@ -48,6 +48,11 @@ const Routes = () => {
         />
         <PrivateRoute
           exact
+          path="/add-participant/:eventId"
+          component={AddParticipant}
+        />
+        <PrivateRoute
+          exact
           path="/edit-participant/:id"
           component={EditParticipant}
         />
