@@ -244,8 +244,25 @@ const EscState = (props) => {
     }
   };
 
+  // Get all participants by artist
+  const getParticipantsByArtist = async (artist) => {
+    try {
+      const res = await axios.get(`${api}/participants?artist=${artist}`);
+      dispatch({
+        type: GET_PARTICIPANTS,
+        payload: res.data.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: SET_ERROR,
+        payload: 'Something went wrong trying to retrieve participants',
+      });
+    }
+  };
+
   // Get participant by id
   const getParticipant = async (id) => {
+    clearEsc();
     try {
       const res = await axios.get(`${api}/participants/${id}`);
       dispatch({
@@ -383,6 +400,7 @@ const EscState = (props) => {
         deleteEvent,
         getParticipants,
         getParticipant,
+        getParticipantsByArtist,
         getParticipantsByCountry,
         getParticipantsByEvent,
         addParticipant,

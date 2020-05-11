@@ -23,7 +23,6 @@ const Event = ({ match, history }) => {
   const { setAlert } = alertContext;
 
   useEffect(() => {
-    console.log(message);
     if (message !== null) {
       setAlert(message, 'success');
       clearMessage();

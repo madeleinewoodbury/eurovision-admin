@@ -3,21 +3,30 @@ import { Link } from 'react-router-dom';
 import EscContext from '../../context/esc/escContext';
 import InfoItem from '../layout/InfoItem';
 import placeholder from '../../img/placeholder.jpg';
+import ParticipantTable from './ParticipantTable';
 
 const Participant = ({ match, history }) => {
   const escContext = useContext(EscContext);
   const {
     getParticipant,
+    getParticipantsByArtist,
     participant,
+    participants,
     deleteParticipant,
     loading,
   } = escContext;
 
   useEffect(() => {
-    getParticipant(match.params.id);
+    if (participant !== null) {
+      participant._id !== match.params.id && getParticipant(match.params.id);
+    } else {
+      participant === null && getParticipant(match.params.id);
+    }
+
+    participants.length < 1 && getAllParticipations();
 
     // eslint-disable-next-line
-  }, []);
+  }, [participant, match.params.id]);
 
   const handleDelete = (e) => {
     if (
@@ -34,6 +43,12 @@ const Participant = ({ match, history }) => {
     if (participant.country.altIcon) return participant.country.altIcon;
     else
       return `https://www.countryflags.io/${participant.country.code}/flat/16.png`;
+  };
+
+  const getAllParticipations = () => {
+    if (participant !== null) {
+      getParticipantsByArtist(participant.artist);
+    }
   };
 
   return (
@@ -86,6 +101,15 @@ const Participant = ({ match, history }) => {
                       {i === 0 ? <strong>{text}</strong> : text}
                     </p>
                   ))}
+                <div className="tables">
+                  {participants.length > 0 && (
+                    <ParticipantTable
+                      history={history}
+                      participants={participants}
+                      getParticipant={getParticipant}
+                    />
+                  )}
+                </div>
               </section>
             </div>
           </div>
