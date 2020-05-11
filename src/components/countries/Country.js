@@ -132,6 +132,17 @@ const Country = ({ match, history }) => {
                   />
                 )}
               </div>
+              {country.video && (
+                <div className="video">
+                  <iframe
+                    title={`${country.name} in the Eurovision`}
+                    src={`https://www.youtube.com/embed/${country.video}`}
+                    frameBorder="0"
+                    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              )}
             </section>
           </div>
         </div>

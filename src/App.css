@@ -433,6 +433,21 @@ button {
   padding-bottom: 1rem;
 }
 
+.feature .content .bottom .video {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0 5rem 0;
+  grid-area: video;
+  width: 100%;
+}
+
+.feature .content .bottom .video iframe {
+  width: 700px;
+  height: 400px;
+}
+
 /* Table */
 table {
   width: 100%;
@@ -598,6 +613,11 @@ table .country-td img {
   .hide-sm {
     display: none;
   }
+
+  .feature .content .bottom .video iframe {
+    width: 500px;
+    height: 300px;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -611,5 +631,10 @@ table .country-td img {
 
   .hide-xs {
     display: none;
+  }
+
+  .feature .content .bottom .video iframe {
+    width: 300px;
+    height: 200px;
   }
 }

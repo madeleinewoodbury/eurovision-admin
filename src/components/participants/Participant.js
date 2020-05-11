@@ -110,6 +110,17 @@ const Participant = ({ match, history }) => {
                     />
                   )}
                 </div>
+                {participant.video && (
+                  <div className="video">
+                    <iframe
+                      title={`${participant.artist} ${participant.song}`}
+                      src={`https://www.youtube.com/embed/${participant.video}`}
+                      frameBorder="0"
+                      allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                )}
               </section>
             </div>
           </div>

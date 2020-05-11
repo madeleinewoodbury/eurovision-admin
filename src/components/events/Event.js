@@ -136,6 +136,17 @@ const Event = ({ match, history }) => {
                   />
                 )}{' '}
               </div>
+              {event.video && (
+                <div className="video">
+                  <iframe
+                    title={`Eurovision ${event.year}`}
+                    src={`https://www.youtube.com/embed/${event.video}`}
+                    frameBorder="0"
+                    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              )}
             </section>
           </div>
         </div>
