@@ -4,6 +4,7 @@ const CountryParticipantTable = ({ participants, handleSort, history }) => {
   const [artistSort, setArtistSort] = useState('desc');
   const [songSort, setSongSort] = useState('desc');
   const [yearSort, setYearSort] = useState('asc');
+  const [placeSort, setPlaceSort] = useState('desc');
 
   const sortArtist = (e) => {
     artistSort === 'asc' ? handleSort('-artist') : handleSort('artist');
@@ -18,6 +19,11 @@ const CountryParticipantTable = ({ participants, handleSort, history }) => {
   const sortYear = (e) => {
     yearSort === 'asc' ? handleSort('-event') : handleSort('event');
     setYearSort(yearSort === 'asc' ? 'desc' : 'asc');
+  };
+
+  const sortPlace = (e) => {
+    placeSort === 'asc' ? handleSort('-place') : handleSort('place');
+    setPlaceSort(placeSort === 'asc' ? 'desc' : 'asc');
   };
 
   const handleRedirect = (id) => {
@@ -39,6 +45,9 @@ const CountryParticipantTable = ({ participants, handleSort, history }) => {
             <th>
               Year<i onClick={sortYear} className="fas fa-sort"></i>
             </th>
+            <th>
+              Place<i onClick={sortPlace} className="fas fa-sort"></i>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -47,6 +56,7 @@ const CountryParticipantTable = ({ participants, handleSort, history }) => {
               <td>{p.artist}</td>
               <td>{p.song}</td>
               <td>{p.event.year}</td>
+              <td>{p.place}</td>
             </tr>
           ))}
         </tbody>

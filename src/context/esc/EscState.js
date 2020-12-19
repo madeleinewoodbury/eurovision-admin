@@ -248,6 +248,7 @@ const EscState = (props) => {
   const getParticipantsByArtist = async (artist) => {
     try {
       const res = await axios.get(`${api}/participants?artist=${artist}`);
+
       dispatch({
         type: GET_PARTICIPANTS,
         payload: res.data.data,

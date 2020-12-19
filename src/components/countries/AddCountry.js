@@ -13,7 +13,7 @@ const AddCountry = ({ history }) => {
     image: '',
     firstParticipation: '',
     bio: '',
-    youtube: '',
+    video: '',
   });
 
   const handleChange = (e) =>
@@ -92,8 +92,8 @@ const AddCountry = ({ history }) => {
           <FormInput
             type="text"
             placeholder="Youtube Link"
-            name="youtube"
-            value={formData.youtube}
+            name="video"
+            value={formData.video}
             handleChange={handleChange}
             required={false}
             small="Link to video of country in Eurovision Song Contest"

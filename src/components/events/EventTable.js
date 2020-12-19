@@ -6,6 +6,7 @@ const EventTable = ({ history, participants, handleSort }) => {
   const [artistSort, setArtistSort] = useState('desc');
   const [songSort, setSongSort] = useState('desc');
   const [pointsSort, setPointsSort] = useState('asc');
+  const [placeSort, setPlaceSort] = useState('desc');
 
   const sortStartNr = (e) => {
     startSort === 'asc' ? handleSort('-startNr') : handleSort('startNr');
@@ -30,6 +31,11 @@ const EventTable = ({ history, participants, handleSort }) => {
   const sortPoints = (e) => {
     pointsSort === 'asc' ? handleSort('-points') : handleSort('points');
     setPointsSort(pointsSort === 'asc' ? 'desc' : 'asc');
+  };
+
+  const sortPlace = (e) => {
+    placeSort === 'asc' ? handleSort('-place') : handleSort('place');
+    setPlaceSort(placeSort === 'asc' ? 'desc' : 'asc');
   };
 
   const handleRedirect = (id) => {
@@ -62,7 +68,9 @@ const EventTable = ({ history, participants, handleSort }) => {
             <th>
               Points<i onClick={sortPoints} className="fas fa-sort"></i>
             </th>
-            <th className="hide-md">Place</th>
+            <th className="hide-md">
+              Place<i onClick={sortPlace} className="fas fa-sort"></i>
+            </th>
           </tr>
         </thead>
         <tbody>

@@ -133,7 +133,7 @@ const AddParticipant = ({ history, match }) => {
               handleChange={handleChange}
             />
             <FormInput
-              type="text"
+              type="number"
               placeholder="* Place"
               name="place"
               value={formData.place}

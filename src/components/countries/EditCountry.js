@@ -13,7 +13,7 @@ const EditCountry = ({ match, history }) => {
     image: '',
     firstParticipation: '',
     bio: '',
-    youtube: '',
+    video: '',
   });
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const EditCountry = ({ match, history }) => {
             ? ''
             : country.firstParticipation,
         bio: loading || !country.bio ? '' : country.bio,
-        youtube: loading || !country.youtube ? '' : country.youtube,
+        video: loading || !country.video ? '' : country.video,
       });
     }
   }, [loading, getCountry, match.params.id, country]);
@@ -111,8 +111,8 @@ const EditCountry = ({ match, history }) => {
           <FormInput
             type="text"
             placeholder="Youtube Link"
-            name="youtube"
-            value={formData.youtube}
+            name="video"
+            value={formData.video}
             handleChange={handleChange}
             required={false}
             small="Link to video of country in Eurovision Song Contest"

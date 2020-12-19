@@ -64,7 +64,7 @@ const EditParticipant = ({ match, history }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     editParticipant(match.params.id, formData);
-    history.push('/');
+    history.push(`/participants/${participant._id}`);
   };
 
   return (
@@ -151,7 +151,7 @@ const EditParticipant = ({ match, history }) => {
               handleChange={handleChange}
             />
             <FormInput
-              type="text"
+              type="number"
               placeholder="* Place"
               name="place"
               value={formData.place}

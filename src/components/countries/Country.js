@@ -39,6 +39,8 @@ const Country = ({ match, history }) => {
       } else {
         return 'Never won';
       }
+    } else {
+      return 'Never won';
     }
   };
 
@@ -106,6 +108,7 @@ const Country = ({ match, history }) => {
                 />
                 <InfoItem title="Victories" text={calcWinners()} />
                 <InfoItem title="Hosted" text={calcEvents()} />
+                <InfoItem title="Participations" text={participants.length} />
               </div>
             </div>
 
