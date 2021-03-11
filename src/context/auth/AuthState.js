@@ -1,7 +1,7 @@
-import React, { useReducer } from 'react';
-import axios from 'axios';
-import AuthContext from './authContext';
-import AuthReducer from './authReducer';
+import React, { useReducer } from 'react'
+import axios from 'axios'
+import AuthContext from './authContext'
+import AuthReducer from './authReducer'
 import {
   AUTH_ERROR,
   USER_LOADED,
@@ -9,9 +9,10 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   CLEAR_ERRORS,
-} from '../types';
+} from '../types'
 
-const api = 'http://localhost:5000/api/v1';
+// const api = 'http://localhost:5000/api/v1';
+const api = 'https://eurovision-song-contest-api.herokuapp.com/api/v1'
 
 const AuthState = (props) => {
   const initialState = {
@@ -20,26 +21,26 @@ const AuthState = (props) => {
     loading: true,
     user: null,
     error: null,
-  };
+  }
 
-  const [state, dispatch] = useReducer(AuthReducer, initialState);
+  const [state, dispatch] = useReducer(AuthReducer, initialState)
 
   // Load User
   const loadUser = async () => {
     const config = {
       headers: { Authorization: `Bearer ${localStorage.token}` },
-    };
+    }
 
     try {
-      const res = await axios.get(`${api}/auth/me`, config);
+      const res = await axios.get(`${api}/auth/me`, config)
       dispatch({
         type: USER_LOADED,
         payload: res.data,
-      });
+      })
     } catch (err) {
-      dispatch({ type: AUTH_ERROR });
+      dispatch({ type: AUTH_ERROR })
     }
-  };
+  }
 
   // Login User
   const login = async (formData) => {
@@ -47,30 +48,30 @@ const AuthState = (props) => {
       headers: {
         'Content-Type': 'application/json',
       },
-    };
+    }
 
     try {
-      const res = await axios.post(`${api}/auth/login`, formData, config);
+      const res = await axios.post(`${api}/auth/login`, formData, config)
 
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
-      });
+      })
 
-      loadUser();
+      loadUser()
     } catch (err) {
       dispatch({
         type: LOGIN_FAIL,
         payload: 'Invalid Credentials',
-      });
+      })
     }
-  };
+  }
 
   // Logout
-  const logout = () => dispatch({ type: LOGOUT });
+  const logout = () => dispatch({ type: LOGOUT })
 
   // Clear errors
-  const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
+  const clearErrors = () => dispatch({ type: CLEAR_ERRORS })
 
   return (
     <AuthContext.Provider
@@ -88,7 +89,7 @@ const AuthState = (props) => {
     >
       {props.children}
     </AuthContext.Provider>
-  );
-};
+  )
+}
 
-export default AuthState;
+export default AuthState
