@@ -16,8 +16,8 @@ import {
   CLEAR_ESC,
 } from '../types'
 
-const api = 'http://localhost:5000/api/v1'
-// const api = 'https://eurovision-song-contest-api.herokuapp.com/api/v1'
+// const api = 'http://localhost:5000/api/v1'
+const api = 'https://eurovision-song-contest-api.herokuapp.com/api/v1'
 const config = {
   headers: {
     'Content-Type': 'application/json',
