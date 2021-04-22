@@ -1,100 +1,114 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-const EventTable = ({ history, participants, handleSort }) => {
-  const [startSort, setStartSort] = useState('asc');
-  const [countrySort, setCountrySort] = useState('desc');
-  const [artistSort, setArtistSort] = useState('desc');
-  const [songSort, setSongSort] = useState('desc');
-  const [pointsSort, setPointsSort] = useState('asc');
-  const [placeSort, setPlaceSort] = useState('desc');
-
-  const sortStartNr = (e) => {
-    startSort === 'asc' ? handleSort('-startNr') : handleSort('startNr');
-    setStartSort(startSort === 'asc' ? 'desc' : 'asc');
-  };
-
-  const sortCountry = (e) => {
-    countrySort === 'asc' ? handleSort('-country') : handleSort('country');
-    setCountrySort(countrySort === 'asc' ? 'desc' : 'asc');
-  };
-
-  const sortArtist = (e) => {
-    artistSort === 'asc' ? handleSort('-artist') : handleSort('artist');
-    setArtistSort(artistSort === 'asc' ? 'desc' : 'asc');
-  };
-
-  const sortSong = (e) => {
-    songSort === 'asc' ? handleSort('-song') : handleSort('song');
-    setSongSort(songSort === 'asc' ? 'desc' : 'asc');
-  };
-
-  const sortPoints = (e) => {
-    pointsSort === 'asc' ? handleSort('-points') : handleSort('points');
-    setPointsSort(pointsSort === 'asc' ? 'desc' : 'asc');
-  };
-
-  const sortPlace = (e) => {
-    placeSort === 'asc' ? handleSort('-place') : handleSort('place');
-    setPlaceSort(placeSort === 'asc' ? 'desc' : 'asc');
-  };
+const EventTable = ({ history, participants, viewTable }) => {
+  const [sortDown, toggleSortDown] = useState(false)
 
   const handleRedirect = (id) => {
-    history.push(`/participants/${id}`);
-  };
+    history.push(`/participants/${id}`)
+  }
 
   const getImage = (p) => {
-    if (p.country.altIcon) return p.country.altIcon;
-    else return `https://www.countryflags.io/${p.country.code}/flat/24.png`;
-  };
+    if (p.country.altIcon) return p.country.altIcon
+    else return `https://www.countryflags.io/${p.country.code}/flat/24.png`
+  }
+
+  const sortByStart = () => {
+    if (viewTable === 'Grand Final') {
+      sortDown
+        ? participants.sort((a, b) => (a.startNr > b.startNr ? 1 : -1))
+        : participants.sort((a, b) => (a.startNr < b.startNr ? 1 : -1))
+    } else {
+      sortDown
+        ? participants.sort((a, b) => (a.semiStartNr > b.semiStartNr ? 1 : -1))
+        : participants.sort((a, b) => (a.semiStartNr < b.semiStartNr ? 1 : -1))
+    }
+    toggleSortDown(!sortDown)
+  }
+
+  const sortByPoints = () => {
+    if (viewTable === 'Grand Final') {
+      sortDown
+        ? participants.sort((a, b) => (a.points > b.points ? 1 : -1))
+        : participants.sort((a, b) => (a.points < b.points ? 1 : -1))
+    } else {
+      sortDown
+        ? participants.sort((a, b) => (a.semiPoints > b.semiPoints ? 1 : -1))
+        : participants.sort((a, b) => (a.semiPoints < b.semiPoints ? 1 : -1))
+    }
+    toggleSortDown(!sortDown)
+  }
+
+  const sortByPlace = () => {
+    if (viewTable === 'Grand Final') {
+      sortDown
+        ? participants.sort((a, b) => (a.place > b.place ? 1 : -1))
+        : participants.sort((a, b) => (a.place < b.place ? 1 : -1))
+    } else {
+      sortDown
+        ? participants.sort((a, b) => (a.semiPlace > b.semiPlace ? 1 : -1))
+        : participants.sort((a, b) => (a.semiPlace < b.semiPlace ? 1 : -1))
+    }
+    toggleSortDown(!sortDown)
+  }
+
+  const showTable = () => {
+    let scoreboard = []
+    if (viewTable === 'Grand Final') {
+      scoreboard = participants.filter((p) => p.final)
+    } else if (viewTable === 'First Semifinal') {
+      scoreboard = participants.filter((p) => p.semifinal === 1)
+    } else if (viewTable === 'Second Semifinal') {
+      scoreboard = participants.filter((p) => p.semifinal === 2)
+    }
+
+    return scoreboard.map((p) => (
+      <tr
+        key={p._id}
+        onClick={(e) => handleRedirect(p._id)}
+        className={p.winner ? 'winner' : null}
+      >
+        <td>{viewTable === 'Grand Final' ? p.startNr : p.semiStartNr}</td>
+        <td className='country-td'>
+          <img src={getImage(p)} alt={`${p.country.name} flag`} />{' '}
+          {p.country.name}
+        </td>
+        <td className='hide-xs'>{p.artist}</td>
+        <td className='hide-sm'>{p.song}</td>
+        <td>{viewTable === 'Grand Final' ? p.points : p.semiPoints}</td>
+        <td className='hide-md'>
+          {viewTable === 'Grand Final' ? p.place : p.semiPlace}
+        </td>
+      </tr>
+    ))
+  }
 
   return (
-    <div className="table">
-      <h2 className="section-title">Participants</h2>
+    <div className='table'>
+      <h2 className='section-title'>{viewTable}</h2>
       <table>
         <thead>
           <tr>
             <th>
-              R/O<i onClick={sortStartNr} className="fas fa-sort"></i>
+              R/O
+              <i onClick={sortByStart} className='fas fa-sort'></i>
             </th>
+            <th>Country</th>
+            <th className='hide-xs'>Artist</th>
+            <th className='hide-sm'>Song</th>
             <th>
-              Country<i onClick={sortCountry} className="fas fa-sort"></i>
+              Points
+              <i onClick={sortByPoints} className='fas fa-sort'></i>
             </th>
-            <th className="hide-xs">
-              Artist<i onClick={sortArtist} className="fas fa-sort"></i>
-            </th>
-            <th className="hide-sm">
-              Song<i onClick={sortSong} className="fas fa-sort"></i>
-            </th>
-            <th>
-              Points<i onClick={sortPoints} className="fas fa-sort"></i>
-            </th>
-            <th className="hide-md">
-              Place<i onClick={sortPlace} className="fas fa-sort"></i>
+            <th className='hide-md'>
+              Place
+              <i onClick={sortByPlace} className='fas fa-sort'></i>
             </th>
           </tr>
         </thead>
-        <tbody>
-          {participants.map((p) => (
-            <tr
-              key={p._id}
-              onClick={(e) => handleRedirect(p._id)}
-              className={p.winner ? 'winner' : null}
-            >
-              <td>{p.startNr}</td>
-              <td className="country-td">
-                <img src={getImage(p)} alt={`${p.country.name} flag`} />{' '}
-                {p.country.name}
-              </td>
-              <td className="hide-xs">{p.artist}</td>
-              <td className="hide-sm">{p.song}</td>
-              <td>{p.points}</td>
-              <td className="hide-md">{p.place}</td>
-            </tr>
-          ))}
-        </tbody>
+        <tbody>{showTable()}</tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default EventTable;
+export default EventTable

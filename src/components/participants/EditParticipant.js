@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
-import EscContext from "../../context/esc/escContext";
-import FormInput from "../forms/FormInput";
+import React, { useState, useContext, useEffect, Fragment } from 'react'
+import EscContext from '../../context/esc/escContext'
+import FormInput from '../forms/FormInput'
 
 const EditParticipant = ({ match, history }) => {
-  const escContext = useContext(EscContext);
+  const escContext = useContext(EscContext)
   const {
     getCountries,
     getEvents,
@@ -13,61 +13,69 @@ const EditParticipant = ({ match, history }) => {
     getParticipant,
     editParticipant,
     participant,
-  } = escContext;
+  } = escContext
   const [formData, setFormData] = useState({
-    artist: "",
-    song: "",
-    country: "",
-    event: "",
-    semifinal: "",
-    final: "",
-    startNr: "",
+    artist: '',
+    song: '',
+    country: '',
+    event: '',
+    semifinal: '',
+    semiStartNr: '',
+    semiPoints: '',
+    semiPlace: '',
+    final: '',
+    startNr: '',
     points: 0,
-    winner: "",
-    place: "",
-    image: "",
-    bio: "",
-    video: "",
-  });
+    winner: '',
+    place: '',
+    image: '',
+    bio: '',
+    video: '',
+  })
 
   useEffect(() => {
-    countries.length === 0 && getCountries();
-    events.length === 0 && getEvents();
-    participant === null && getParticipant(match.params.id);
+    countries.length === 0 && getCountries()
+    events.length === 0 && getEvents()
+    participant === null && getParticipant(match.params.id)
 
     if (participant !== null) {
-      updateFormData();
+      updateFormData()
     }
 
     // eslint-disable-next-line
-  }, [loading, participant]);
+  }, [loading, participant])
 
   const updateFormData = () => {
     setFormData({
-      artist: loading || !participant.artist ? "" : participant.artist,
-      song: loading || !participant.song ? "" : participant.song,
-      country: loading || !participant.country.id ? "" : participant.country.id,
-      event: loading || !participant.event._id ? "" : participant.event._id,
-      semifinal: loading || !participant.semifinal ? "" : participant.semifinal,
+      artist: loading || !participant.artist ? '' : participant.artist,
+      song: loading || !participant.song ? '' : participant.song,
+      country: loading || !participant.country.id ? '' : participant.country.id,
+      event: loading || !participant.event._id ? '' : participant.event._id,
+      semifinal: loading || !participant.semifinal ? '' : participant.semifinal,
       final: loading || participant.final,
-      startNr: loading || !participant.startNr ? "" : participant.startNr,
-      points: loading || !participant.points ? "" : participant.points,
+      semiStartNr:
+        loading || !participant.semiStartNr ? '' : participant.semiStartNr,
+      semiPoints:
+        loading || !participant.semiPoints ? '' : participant.semiPoints,
+      semiPlace: loading || !participant.semiPlace ? '' : participant.semiPlace,
+      startNr: loading || !participant.startNr ? '' : participant.startNr,
+      points: loading || !participant.points ? '' : participant.points,
       winner: loading || participant.winner,
-      place: loading || !participant.place ? "" : participant.place,
-      image: loading || !participant.image ? "" : participant.image,
-      bio: loading || !participant.bio ? "" : participant.bio,
-      video: loading || !participant.video ? "" : participant.video,
-    });
-  };
+      place: loading || !participant.place ? '' : participant.place,
+      image: loading || !participant.image ? '' : participant.image,
+      bio: loading || !participant.bio ? '' : participant.bio,
+      video: loading || !participant.video ? '' : participant.video,
+    })
+  }
 
   const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value })
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    editParticipant(match.params.id, formData);
-    history.push(`/participants/${participant._id}`);
-  };
+    e.preventDefault()
+    editParticipant(match.params.id, formData)
+    history.push(`/participants/${participant._id}`)
+  }
 
   return (
     !loading && (
@@ -140,6 +148,34 @@ const EditParticipant = ({ match, history }) => {
                 </option>
               </select>
             </div>
+            {formData.semifinal !== '' && (
+              <Fragment>
+                <FormInput
+                  type='number'
+                  placeholder='* Start Number in Semifinal'
+                  name='semiStartNr'
+                  value={formData.semiStartNr}
+                  handleChange={handleChange}
+                  className='semi-box'
+                />
+                <FormInput
+                  type='number'
+                  placeholder='* Points in Semifinal'
+                  name='semiPoints'
+                  value={formData.semiPoints}
+                  handleChange={handleChange}
+                  className='semi-box'
+                />
+                <FormInput
+                  type='number'
+                  placeholder='* Place in Semifinal'
+                  name='semiPlace'
+                  value={formData.semiPlace}
+                  handleChange={handleChange}
+                  className='semi-box'
+                />
+              </Fragment>
+            )}
             <div className='form-group'>
               <p>
                 <input
@@ -148,33 +184,38 @@ const EditParticipant = ({ match, history }) => {
                   checked={formData.final}
                   value={formData.final}
                   onChange={() => {
-                    setFormData({ ...formData, final: !formData.final });
+                    setFormData({ ...formData, final: !formData.final })
                   }}
-                />{" "}
+                />{' '}
                 Grand Final
               </p>
             </div>
-            <FormInput
-              type='number'
-              placeholder='* Start Number'
-              name='startNr'
-              value={formData.startNr}
-              handleChange={handleChange}
-            />
-            <FormInput
-              type='number'
-              placeholder='* Points'
-              name='points'
-              value={formData.points}
-              handleChange={handleChange}
-            />
-            <FormInput
-              type='number'
-              placeholder='* Place'
-              name='place'
-              value={formData.place}
-              handleChange={handleChange}
-            />
+            {formData.final && (
+              <Fragment>
+                <FormInput
+                  type='number'
+                  placeholder='* Start Number'
+                  name='startNr'
+                  value={formData.startNr}
+                  handleChange={handleChange}
+                />
+                <FormInput
+                  type='number'
+                  placeholder='* Points'
+                  name='points'
+                  value={formData.points}
+                  handleChange={handleChange}
+                />
+                <FormInput
+                  type='number'
+                  placeholder='* Place'
+                  name='place'
+                  value={formData.place}
+                  handleChange={handleChange}
+                />
+              </Fragment>
+            )}
+
             <div className='form-group'>
               <p>
                 <input
@@ -183,9 +224,9 @@ const EditParticipant = ({ match, history }) => {
                   checked={formData.winner}
                   value={formData.winner}
                   onChange={() => {
-                    setFormData({ ...formData, winner: !formData.winner });
+                    setFormData({ ...formData, winner: !formData.winner })
                   }}
-                />{" "}
+                />{' '}
                 Winner
               </p>
             </div>
@@ -221,7 +262,7 @@ const EditParticipant = ({ match, history }) => {
         </div>
       </div>
     )
-  );
-};
+  )
+}
 
-export default EditParticipant;
+export default EditParticipant

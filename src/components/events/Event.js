@@ -1,148 +1,180 @@
-import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import EscContext from '../../context/esc/escContext';
-import AlertContext from '../../context/alert/alertContext';
-import InfoItem from '../layout/InfoItem';
-import EventTable from './EventTable';
-import placeholder from '../../img/placeholder.jpg';
+import React, { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import EscContext from '../../context/esc/escContext'
+import AlertContext from '../../context/alert/alertContext'
+import InfoItem from '../layout/InfoItem'
+import EventTable from './EventTable'
+import placeholder from '../../img/placeholder.jpg'
 
 const Event = ({ match, history }) => {
-  const escContext = useContext(EscContext);
-  const alertContext = useContext(AlertContext);
+  const escContext = useContext(EscContext)
+  const alertContext = useContext(AlertContext)
 
   const {
     getEvent,
     event,
-    getParticipantsByEvent,
-    participants,
     loading,
     deleteEvent,
     message,
     clearMessage,
-  } = escContext;
-  const { setAlert } = alertContext;
+  } = escContext
+  const { setAlert } = alertContext
+  const [viewTable, setViewTable] = useState('Grand Final')
 
   useEffect(() => {
     if (message !== null) {
-      setAlert(message, 'success');
-      clearMessage();
+      setAlert(message, 'success')
+      clearMessage()
     }
-    getEvent(match.params.id);
-    getParticipantsByEvent(match.params.id, 'startNr');
+    getEvent(match.params.id)
 
     // eslint-disable-next-line
-  }, [message]);
+  }, [message, match.params.id])
 
   const calcParticipants = () => {
-    if (participants.length > 0) {
-      return participants.length;
+    if (event.participants.length > 0) {
+      return event.participants.length
     } else {
-      return 0;
+      return 0
     }
-  };
+  }
 
   const getWinner = () => {
-    if (participants.length > 0) {
-      const winners = participants.filter((p) => p.winner);
+    if (event.participants.length > 0) {
+      const winners = event.participants.filter((p) => p.winner)
       if (winners.length > 0) {
         let winningCountries = winners.map((winner, i) =>
           i > 0 ? ' ' + winner.country.name : winner.country.name
-        );
-        return winningCountries.toString();
+        )
+        return winningCountries.toString()
       } else {
-        return 'TBA';
+        return 'TBA'
       }
     }
-  };
+  }
 
   const getImage = () => {
-    if (event.country.altIcon) return event.country.altIcon;
-    else return `https://www.countryflags.io/${event.country.code}/flat/16.png`;
-  };
-
-  const handleSort = (sort) => {
-    getParticipantsByEvent(match.params.id, sort);
-  };
+    if (event.event.country.altIcon) return event.event.country.altIcon
+    else
+      return `https://www.countryflags.io/${event.event.country.code}/flat/16.png`
+  }
 
   const handleDelete = (e) => {
     if (
       window.confirm(
-        `Are you sure you wish to delete ${event.year} event? This action can not be undone`
+        `Are you sure you wish to delete ${event.event.year} event? This action can not be undone`
       )
     ) {
-      deleteEvent(event._id);
-      history.push('/');
+      deleteEvent(event.event._id)
+      history.push('/')
     }
-  };
+  }
+
+  const getParticipants = () => {
+    if (viewTable === 'Grand Final') {
+      return event.participants.sort((a, b) => (a.startNr > b.startNr ? 1 : -1))
+    } else {
+      return event.participants.sort((a, b) =>
+        a.semiStartNr > b.semiStartNr ? 1 : -1
+      )
+    }
+  }
 
   return (
-    <div className="container">
+    <div className='container'>
       {!loading && event !== null ? (
-        <div className="feature">
-          <div className="action-buttons">
-            <Link to={`/edit-event/${event._id}`} className="btn btn-dark">
+        <div className='feature'>
+          <div className='action-buttons'>
+            <Link
+              to={`/edit-event/${event.event._id}`}
+              className='btn btn-dark'
+            >
               Edit
             </Link>
             <Link
-              to={`/add-participant/${event._id}`}
-              className="btn btn-secondary"
+              to={`/add-participant/${event.event._id}`}
+              className='btn btn-secondary'
             >
               Add Participant
             </Link>
-            <button className="btn btn-danger" onClick={handleDelete}>
+            <button className='btn btn-danger' onClick={handleDelete}>
               Delete
             </button>
           </div>
-          <h1 className="title">
-            {event.year}
-            <img className="logo" src={event.logo} alt={`${event.year} logo`} />
+          <h1 className='title'>
+            {event.event.year}
+            <img
+              className='logo'
+              src={event.event.logo}
+              alt={`${event.event.year} logo`}
+            />
           </h1>
-          <div className="content">
-            <div className="top">
-              <div className="img-container">
+          <div className='content'>
+            <div className='top'>
+              <div className='img-container'>
                 <img
-                  src={event.image}
+                  src={event.event.image}
                   onError={(e) => (e.target.src = placeholder)}
-                  alt={`Eurovision Song Contest ${event.year}`}
+                  alt={`Eurovision Song Contest ${event.event.year}`}
                 />
               </div>
-              <div className="info">
+              <div className='info'>
                 <InfoItem
-                  title="Host Country"
-                  text={event.country.name}
+                  title='Host Country'
+                  text={event.event.country.name}
                   image={getImage()}
-                  alt={`${event.country.name} flag`}
-                  link={`/countries/${event.country._id}`}
+                  alt={`${event.event.country.name} flag`}
+                  link={`/countries/${event.event.country._id}`}
                 />
-                <InfoItem title="City" text={event.city} />
-                <InfoItem title="Participants" text={calcParticipants()} />
-                <InfoItem title="Winner" text={getWinner()} />
+                <InfoItem title='City' text={event.event.city} />
+                <InfoItem title='Participants' text={calcParticipants()} />
+                <InfoItem title='Winner' text={getWinner()} />
               </div>
             </div>
 
-            <section className="bottom">
-              {event.bio.length > 0 &&
-                event.bio.map((text, i) => (
-                  <p key={i} className="bio">
+            <section className='bottom'>
+              {event.event.bio.length > 0 &&
+                event.event.bio.map((text, i) => (
+                  <p key={i} className='bio'>
                     {i === 0 ? <strong>{text}</strong> : text}
                   </p>
                 ))}
-              <div className="tables">
-                {participants.length > 0 && (
+              <div className='tables'>
+                <div>
+                  <button
+                    onClick={(e) => setViewTable('First Semifinal')}
+                    className='btn'
+                  >
+                    First Semifinal
+                  </button>
+                  <button
+                    onClick={(e) => setViewTable('Second Semifinal')}
+                    className='btn'
+                  >
+                    Second Semifinal
+                  </button>
+                  <button
+                    onClick={(e) => setViewTable('Grand Final')}
+                    className='btn'
+                  >
+                    Grand Final
+                  </button>
+                </div>
+                {event.participants.length > 0 && (
                   <EventTable
                     history={history}
-                    participants={participants}
-                    handleSort={handleSort}
+                    participants={getParticipants()}
+                    viewTable={viewTable}
                   />
                 )}{' '}
               </div>
-              {event.video && (
-                <div className="video">
+              {event.event.video && (
+                <div className='video'>
                   <iframe
-                    title={`Eurovision ${event.year}`}
-                    src={`https://www.youtube.com/embed/${event.video}`}
-                    frameBorder="0"
-                    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                    title={`Eurovision ${event.event.year}`}
+                    src={`https://www.youtube.com/embed/${event.event.video}`}
+                    frameBorder='0'
+                    allow='accelerometer; encrypted-media; gyroscope; picture-in-picture'
                     allowFullScreen
                   ></iframe>
                 </div>
@@ -154,7 +186,7 @@ const Event = ({ match, history }) => {
         <p>Loading...</p>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Event;
+export default Event

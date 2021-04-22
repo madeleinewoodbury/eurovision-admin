@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 /* Global Styles */
 :root {
@@ -17,7 +17,7 @@
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   background-color: #fff;
@@ -217,10 +217,10 @@ ul {
   color: #888;
 }
 
-.form input[type="text"],
-.form input[type="email"],
-.form input[type="password"],
-.form input[type="number"],
+.form input[type='text'],
+.form input[type='email'],
+.form input[type='password'],
+.form input[type='number'],
 .form select,
 .form textarea {
   display: block;
@@ -235,7 +235,7 @@ ul {
   height: 300px;
 }
 
-.form input[type="submit"],
+.form input[type='submit'],
 button {
   font: inherit;
 }
@@ -247,6 +247,11 @@ button {
   font-size: 1.2rem;
   border: 1px solid #ccc;
   background-color: rgba(255, 255, 255, 0.9);
+}
+
+.form input.semi-box {
+  background-color: rgba(212, 113, 0, 0.2);
+  color: black;
 }
 
 .year-form {

@@ -16,8 +16,8 @@ import {
   CLEAR_ESC,
 } from '../types'
 
-// const api = 'http://localhost:5000/api/v1';
-const api = 'https://eurovision-song-contest-api.herokuapp.com/api/v1'
+const api = 'http://localhost:5000/api/v1'
+// const api = 'https://eurovision-song-contest-api.herokuapp.com/api/v1'
 const config = {
   headers: {
     'Content-Type': 'application/json',
@@ -148,11 +148,31 @@ const EscState = (props) => {
 
   // Get event by id
   const getEvent = async (id) => {
+    clearEsc()
     try {
       const res = await axios.get(`${api}/events/${id}`)
+      const participantsRes = await axios.get(
+        `${api}/events/${id}/participants`
+      )
+      const semifinal1 = participantsRes.data.data.filter(
+        (p) => p.semifinal === 1
+      )
+      const semifinal2 = participantsRes.data.data.filter(
+        (p) => p.semifinal === 2
+      )
+
+      const semifinals =
+        semifinal2.length > 0 ? 2 : semifinal1.length > 0 ? 1 : 0
+
+      const data = {
+        event: res.data.data,
+        participants: participantsRes.data.data,
+        semifinals: semifinals,
+      }
+
       dispatch({
         type: GET_EVENT,
-        payload: res.data.data,
+        payload: data,
       })
     } catch (err) {
       dispatch({
@@ -298,11 +318,9 @@ const EscState = (props) => {
   }
 
   // Get participants by event id
-  const getParticipantsByEvent = async (id, sort) => {
+  const getParticipantsByEvent = async (id) => {
     try {
-      const res = await axios.get(
-        `${api}/events/${id}/participants?sort=${sort}`
-      )
+      const res = await axios.get(`${api}/events/${id}/participants`)
       dispatch({
         type: GET_PARTICIPANTS,
         payload: res.data.data,
@@ -315,8 +333,32 @@ const EscState = (props) => {
     }
   }
 
+  // Get semifinal participants by event id
+  const getSemifinalParticipantsByEvent = async (id, semifinal) => {
+    try {
+      const res = await axios.get(`${api}/events/${id}/participants`)
+
+      const data = res.data.data.filter(
+        (p) => p.semifinal === Number(semifinal)
+      )
+      dispatch({
+        type: GET_PARTICIPANTS,
+        payload: data,
+      })
+    } catch (err) {
+      dispatch({
+        type: SET_ERROR,
+        payload: 'Something went wrong trying to retrieve participants',
+      })
+    }
+  }
+
   // Add a new particopant
   const addParticipant = async (formData) => {
+    formData.startNr = formData.startNr ? formData.startNr : 0
+    formData.points = formData.points ? formData.points : 0
+    formData.place = formData.place ? formData.place : '0'
+
     try {
       const res = await axios.post(`${api}/participants`, formData, config)
       dispatch({
@@ -401,6 +443,7 @@ const EscState = (props) => {
         getParticipantsByArtist,
         getParticipantsByCountry,
         getParticipantsByEvent,
+        getSemifinalParticipantsByEvent,
         addParticipant,
         editParticipant,
         deleteParticipant,

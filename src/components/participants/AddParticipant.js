@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
-import EscContext from "../../context/esc/escContext";
-import FormInput from "../forms/FormInput";
+import React, { useState, useContext, useEffect, Fragment } from 'react'
+import EscContext from '../../context/esc/escContext'
+import FormInput from '../forms/FormInput'
 
 const AddParticipant = ({ history, match }) => {
-  const escContext = useContext(EscContext);
+  const escContext = useContext(EscContext)
   const {
     getCountries,
     getEvents,
@@ -11,44 +11,47 @@ const AddParticipant = ({ history, match }) => {
     countries,
     events,
     addParticipant,
-  } = escContext;
+  } = escContext
   const [formData, setFormData] = useState({
-    artist: "",
-    song: "",
-    country: "",
-    event: "",
-    semifinal: "",
+    artist: '',
+    song: '',
+    country: '',
+    event: '',
+    semifinal: '',
     final: true,
-    startNr: "",
-    points: "",
+    semiStartNr: '',
+    semiPoints: '',
+    semiPlace: '',
+    startNr: '',
+    points: '',
     winner: false,
-    place: "",
-    image: "",
-    bio: "",
-    video: "",
-  });
+    place: '',
+    image: '',
+    bio: '',
+    video: '',
+  })
 
   useEffect(() => {
     if (match.params.eventId) {
-      setFormData({ ...formData, event: match.params.eventId });
+      setFormData({ ...formData, event: match.params.eventId })
     }
-    getCountries();
-    getEvents();
+    getCountries()
+    getEvents()
     // eslint-disable-next-line
-  }, []);
+  }, [])
 
   const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value })
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    addParticipant(formData);
+    e.preventDefault()
+    addParticipant(formData)
     if (match.params.eventId) {
-      history.push(`/events/${match.params.eventId}`);
+      history.push(`/events/${match.params.eventId}`)
     } else {
-      history.push("/");
+      history.push('/')
     }
-  };
+  }
 
   return (
     !loading && (
@@ -121,6 +124,35 @@ const AddParticipant = ({ history, match }) => {
                 </option>
               </select>
             </div>
+
+            {formData.semifinal !== '' && (
+              <Fragment>
+                <FormInput
+                  type='number'
+                  placeholder='* Start Number in Semifinal'
+                  name='semiStartNr'
+                  value={formData.semiStartNr}
+                  handleChange={handleChange}
+                  className='semi-box'
+                />
+                <FormInput
+                  type='number'
+                  placeholder='* Points in Semifinal'
+                  name='semiPoints'
+                  value={formData.semiPoints}
+                  handleChange={handleChange}
+                  className='semi-box'
+                />
+                <FormInput
+                  type='number'
+                  placeholder='* Place in Semifinal'
+                  name='semiPlace'
+                  value={formData.semiPlace}
+                  handleChange={handleChange}
+                  className='semi-box'
+                />
+              </Fragment>
+            )}
             <div className='form-group'>
               <p>
                 <input
@@ -129,33 +161,38 @@ const AddParticipant = ({ history, match }) => {
                   checked={formData.final}
                   value={formData.final}
                   onChange={() => {
-                    setFormData({ ...formData, final: !formData.final });
+                    setFormData({ ...formData, final: !formData.final })
                   }}
-                />{" "}
+                />{' '}
                 Grand Final
               </p>
             </div>
-            <FormInput
-              type='number'
-              placeholder='* Start Number'
-              name='startNr'
-              value={formData.startNr}
-              handleChange={handleChange}
-            />
-            <FormInput
-              type='number'
-              placeholder='* Points'
-              name='points'
-              value={formData.points}
-              handleChange={handleChange}
-            />
-            <FormInput
-              type='number'
-              placeholder='* Place'
-              name='place'
-              value={formData.place}
-              handleChange={handleChange}
-            />
+            {formData.final && (
+              <Fragment>
+                <FormInput
+                  type='number'
+                  placeholder='* Final Start Number'
+                  name='startNr'
+                  value={formData.startNr}
+                  handleChange={handleChange}
+                />
+                <FormInput
+                  type='number'
+                  placeholder='* Final Points'
+                  name='points'
+                  value={formData.points}
+                  handleChange={handleChange}
+                />
+                <FormInput
+                  type='number'
+                  placeholder='* Final Place'
+                  name='place'
+                  value={formData.place}
+                  handleChange={handleChange}
+                />
+              </Fragment>
+            )}
+
             <div className='form-group'>
               <p>
                 <input
@@ -164,9 +201,9 @@ const AddParticipant = ({ history, match }) => {
                   checked={formData.winner}
                   value={formData.winner}
                   onChange={() => {
-                    setFormData({ ...formData, winner: !formData.winner });
+                    setFormData({ ...formData, winner: !formData.winner })
                   }}
-                />{" "}
+                />{' '}
                 Winner
               </p>
             </div>
@@ -203,7 +240,7 @@ const AddParticipant = ({ history, match }) => {
         </div>
       </div>
     )
-  );
-};
+  )
+}
 
-export default AddParticipant;
+export default AddParticipant

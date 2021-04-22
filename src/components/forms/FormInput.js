@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const FormInput = ({
   type,
@@ -9,9 +9,10 @@ const FormInput = ({
   maxLength,
   required = true,
   small,
+  className,
 }) => {
   return (
-    <div className="form-group">
+    <div className='form-group'>
       {type !== 'textarea' ? (
         <input
           type={type}
@@ -21,6 +22,7 @@ const FormInput = ({
           onChange={handleChange}
           required={required}
           maxLength={maxLength && maxLength}
+          className={className}
         />
       ) : (
         <textarea
@@ -31,9 +33,9 @@ const FormInput = ({
           required={required}
         ></textarea>
       )}
-      {small && <small className="form-text">{small}</small>}
+      {small && <small className='form-text'>{small}</small>}
     </div>
-  );
-};
+  )
+}
 
-export default FormInput;
+export default FormInput
