@@ -1,15 +1,11 @@
 import React, { useState } from 'react'
+import { getIcon } from '../../icons'
 
 const EventTable = ({ history, participants, viewTable }) => {
   const [sortDown, toggleSortDown] = useState(false)
 
   const handleRedirect = (id) => {
     history.push(`/participants/${id}`)
-  }
-
-  const getImage = (p) => {
-    if (p.country.altIcon) return p.country.altIcon
-    else return `https://www.countryflags.io/${p.country.code}/flat/24.png`
   }
 
   const sortByStart = () => {
@@ -69,7 +65,7 @@ const EventTable = ({ history, participants, viewTable }) => {
       >
         <td>{viewTable === 'Grand Final' ? p.startNr : p.semiStartNr}</td>
         <td className='country-td'>
-          <img src={getImage(p)} alt={`${p.country.name} flag`} />{' '}
+          <img src={getIcon(p.country.code)} alt={`${p.country.name} flag`} />{' '}
           {p.country.name}
         </td>
         <td className='hide-xs'>{p.artist}</td>

@@ -74,7 +74,7 @@ const EditParticipant = ({ match, history }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     editParticipant(match.params.id, formData)
-    history.push(`/participants/${participant._id}`)
+    history.push(`/events/${formData.event}`)
   }
 
   return (

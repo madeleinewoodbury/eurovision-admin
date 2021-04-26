@@ -5,6 +5,7 @@ import AlertContext from '../../context/alert/alertContext'
 import InfoItem from '../layout/InfoItem'
 import EventTable from './EventTable'
 import placeholder from '../../img/placeholder.jpg'
+import { getIcon } from '../../icons'
 
 const Event = ({ match, history }) => {
   const escContext = useContext(EscContext)
@@ -51,12 +52,6 @@ const Event = ({ match, history }) => {
         return 'TBA'
       }
     }
-  }
-
-  const getImage = () => {
-    if (event.event.country.altIcon) return event.event.country.altIcon
-    else
-      return `https://www.countryflags.io/${event.event.country.code}/flat/16.png`
   }
 
   const handleDelete = (e) => {
@@ -122,7 +117,7 @@ const Event = ({ match, history }) => {
                 <InfoItem
                   title='Host Country'
                   text={event.event.country.name}
-                  image={getImage()}
+                  image={getIcon(event.event.country.code)}
                   alt={`${event.event.country.name} flag`}
                   link={`/countries/${event.event.country._id}`}
                 />
